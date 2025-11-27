@@ -3,21 +3,30 @@ if (!("Entities" in this)) return;
 IncludeScript("ppmod")
 IncludeScript("PCapture-Lib")
 
-// Deletes entities not received yet
+// Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
-	for (local ent; ent = Entities.FindByClassname(ent, entity_name); )
-	{
-		ent.Destroy();
+	local ent = null;
+	while (ent = ppmod.get(entity_name, ent)) {
+		ent.Destroy()
 	}
 }
 
-// Delete Cubes not received yet
-function DeleteCube(cube_model) {
-	for (local ent; ent = ppmod.get(cube_model, ent); )
-	{
-		ent.Destroy();
+// Disable the portal gun working with left and/or right click
+function DisablePortalGun(blue, orange) {
+	if (blue) {
+		ppmod.keyval("weapon_portalgun", "CanFirePortal1", false);
+	}
+	if (orange) {
+		ppmod.keyval("weapon_portalgun", "CanFirePortal2", false);
 	}
 }
+
+// Disable pickup of entity by class, name or model?
+function DisableEntityPickup(entity_name) {
+	ppmod.keyval(entity_name, "PickupEnabled", false)
+}
+
+//GetWheatleyMonitorDestructionCount()
 
 // When entering map send that info so we can delete entities
 function PrintMapName() {
@@ -25,7 +34,7 @@ function PrintMapName() {
 }
 
 //Not used
-function PrintEntities() {
+function PrintTriggers() {
 	local entity = Entities.First()
 	while (entity != null) {
 		local class_name = entity.GetClassname();
@@ -55,6 +64,7 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
-// We don't have entities until the map is fully loaded. Delay the script a bit.
-Entities.First().ConnectOutput("OnUser1", "PrintMapName")
-DoEntFire("worldspawn", "FireUser1", "", 0.0, null, null)
+// When world loads tell archipelago client
+ppmod.onauto(async(function () {
+	PrintMapName();
+}));
