@@ -2,6 +2,7 @@ if (!("Entities" in this)) return;
 
 IncludeScript("ppmod")
 IncludeScript("PCapture-Lib")
+IncludeScript("textqueue")
 
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
@@ -26,6 +27,24 @@ function DisableEntityPickup(entity_name) {
 	ppmod.keyval(entity_name, "PickupEnabled", false)
 }
 
+// Make fizzlers deadly
+function CreateMurderFizzlers() {
+	local fiz = null;
+	while (fiz = ppmod.get("trigger_portal_cleanser", fiz)) {
+		// Make it red
+		// Currently can't do this unless we create a box in the space with a colour
+		// which we will do later
+
+		// Make it kill the player
+		ppmod.addscript(fiz, "OnStartTouch", function () {
+			local player = GetPlayer();
+			if (activator == player) {
+				SendToConsole("kill");
+			}
+		})
+	}
+}
+
 //GetWheatleyMonitorDestructionCount()
 
 // When entering map send that info so we can delete entities
@@ -48,6 +67,13 @@ function PrintTriggers() {
 	}
 }
 
+function ListEntities() {
+	local ent = null;
+	while (ent = Entities.Next(ent)) {
+		printl(ent);
+	}
+}
+
 // Send complete check
 function PrintMapComplete() {
     printl("map_complete:" + GetMapName());
@@ -64,7 +90,15 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
+::text_queue <- TextQueue();
+function AddToTextQueue(text) {
+	text_queue.AddToQueue(text);
+}
+
 // When world loads tell archipelago client
 ppmod.onauto(async(function () {
 	PrintMapName();
-}));
+	ppmod.interval(function () {
+			text_queue.DisplayQueueMessage();
+		}, text_queue.display_time + 1);
+}), true);
