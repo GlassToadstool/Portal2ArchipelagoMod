@@ -1,7 +1,6 @@
 if (!("Entities" in this)) return;
 
 IncludeScript("ppmod")
-IncludeScript("PCapture-Lib")
 IncludeScript("textqueue")
 
 // Deletes entities not received yet can be done by class, name or model
@@ -27,7 +26,7 @@ function DisableEntityPickup(entity_name) {
 	ppmod.keyval(entity_name, "PickupEnabled", false)
 }
 
-// Make fizzlers deadly
+// Make fizzlers deadly - Not used at the moment
 function CreateMurderFizzlers() {
 	local fiz = null;
 	while (fiz = ppmod.get("trigger_portal_cleanser", fiz)) {
@@ -45,7 +44,30 @@ function CreateMurderFizzlers() {
 	}
 }
 
-//GetWheatleyMonitorDestructionCount()
+function DeleteCoreOnOutput(core_name, target_name, output) {
+    printl(core_name + " Destroy output being set")
+    local delay = 5;
+    if (core_name == "@core01") {
+        ppmod.addscript(target_name, output, function () {
+            printl("@core01 being Deleted")
+            DeleteEntity("@core01");
+        }, delay)
+    }
+    else if (core_name == "@core02") {
+        ppmod.addscript(target_name, output, function () {
+            printl("@core02 being Deleted")
+            DeleteEntity("@core02");
+        }, delay)
+    }
+    else if (core_name == "@core03") {
+        ppmod.addscript(target_name, output, function () {
+            printl("@core03 being Deleted")
+            DeleteEntity("@core03");
+        }, delay)
+    }
+}
+
+//GetWheatleyMonitorDestructionCount() can be used for checking those advancements by seeing difference before at after map finish?
 
 // When entering map send that info so we can delete entities
 function PrintMapName() {
@@ -88,6 +110,7 @@ function CreateCompleteLevelAlertHook() {
     } else {
         printl("No @transition_from_map found")
     }
+    DeleteEntity("@exit_teleport");
 }
 
 ::text_queue <- TextQueue();
@@ -95,10 +118,14 @@ function AddToTextQueue(text) {
 	text_queue.AddToQueue(text);
 }
 
-// When world loads tell archipelago client
+::connected <- false;
+
+// When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
 	PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
+
+
 }), true);

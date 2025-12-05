@@ -412,7 +412,7 @@
     {
         "title" "   Chapter 8: Propulsion Catch"
         "subtitle"  ""
-        "command"   "map sp_a4_speed_catch"
+        "command"   "map sp_a4_speed_tb_catch"
         "pic"   "vgui/chapters/chapter8"
     }
     "chapter 8.11"
