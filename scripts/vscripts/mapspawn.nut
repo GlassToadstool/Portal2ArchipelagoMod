@@ -101,7 +101,7 @@ function PrintMapComplete() {
     printl("map_complete:" + GetMapName());
 }
 
-// Hook complete send on map completion
+// Fire complete send on map completion
 function CreateCompleteLevelAlertHook() {
     local cl = Entities.FindByName(null, "@transition_from_map");
     if (cl) {
@@ -111,6 +111,19 @@ function CreateCompleteLevelAlertHook() {
         printl("No @transition_from_map found")
     }
     DeleteEntity("@exit_teleport");
+}
+
+::sent_death_link <- false;
+function AttachDeathTrigger() {
+    // Create interval that checks player's current health, if it hits 0 then send deathlink
+    ppmod.interval(function() {
+        local player = ppmod.get("player", null); // probably should make global ::player <- XXX
+        local player_hp = player.GetHealth()
+        if (player_hp <= 0 && !sent_death_link) {
+            sent_death_link = true;
+            printl("send deathlink")
+        }
+    })
 }
 
 ::text_queue <- TextQueue();
