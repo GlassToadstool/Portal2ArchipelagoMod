@@ -104,6 +104,9 @@ function PrintMapComplete() {
 // Fire complete send on map completion
 function CreateCompleteLevelAlertHook() {
     local cl = Entities.FindByName(null, "@transition_from_map");
+    if (GetMapName() == "sp_a4_finale4"){
+        cl = ppmod.get("ending_relay", null);
+    }
     if (cl) {
         cl.ConnectOutput("OnTrigger", "PrintMapComplete")
         printl("Connected level complete hook")
