@@ -36,6 +36,7 @@ sourcemods
      └─── ...
 ```
 3. Go to steam and you should see the mod in your steam library. Run it as you would a normal steam game. If it doesn't show up simply restart steam (closing the app completely not just the steam window) and it should appear
+4. Open the settings for the mod by rightclicking the mod in your steam library and select `Properties...`. Then in the launch options box add `-netconport 3000`. This allows the Client to speak to the game which is essential for using the mod.
     
 ## Acknowledgements
 
