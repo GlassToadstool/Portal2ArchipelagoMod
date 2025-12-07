@@ -46,5 +46,5 @@ sourcemods
  - **Kaito Kid** - Answering lots of questions about APWorld development
 
  #### Testers
- - **Your name here
+ - **Your name here**
 
