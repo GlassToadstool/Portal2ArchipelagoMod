@@ -5,8 +5,10 @@ IncludeScript("textqueue")
 
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
+    printl("Trying to remove: " + entity_name)
 	local ent = null;
 	while (ent = ppmod.get(entity_name, ent)) {
+        printl(ent + " : " + ent.GetModelName())
 		ent.Destroy()
 	}
 }
@@ -45,7 +47,6 @@ function CreateMurderFizzlers() {
 }
 
 function DeleteCoreOnOutput(core_name, target_name, output) {
-    printl(core_name + " Destroy output being set")
     local delay = 5;
     if (core_name == "@core01") {
         ppmod.addscript(target_name, output, function () {
@@ -72,21 +73,6 @@ function DeleteCoreOnOutput(core_name, target_name, output) {
 // When entering map send that info so we can delete entities
 function PrintMapName() {
 	printl("map_name:" + GetMapName());
-}
-
-//Not used
-function PrintTriggers() {
-	local entity = Entities.First()
-	while (entity != null) {
-		local class_name = entity.GetClassname();
-		if (class_name == "trigger_once") {
-			printl("Trigger entity | name: " + entity.GetName())
-			printl(entity.GetCenter())
-		} else {
-			printl(class_name + " entity | name: " + entity.GetName())
-		}
-		entity = Entities.Next(entity)
-	}
 }
 
 function ListEntities() {
@@ -117,6 +103,22 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
+function DoMapSpecificSetup() {
+    local current_map = GetMapName();
+    if (current_map == "sp_a1_intro3") {
+        // portalgun pickup trigger here doesn't have a name so will have to use Vector search
+        ppmod.addscript(ppmod.get(Vector(25, 1958, -299), 2, "trigger_once"), "OnStartTouch", function(){
+            printl("item_collected:Portal Gun");
+        }, 2);
+    }
+    else if (current_map == "sp_a2_intro") {
+        ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
+            DisablePortalGun(false, true);
+            printl("item_collected:Portal Gun Upgrade");
+        }, 2);
+    }
+}
+
 ::sent_death_link <- false;
 function AttachDeathTrigger() {
     // Create interval that checks player's current health, if it hits 0 then send deathlink
@@ -143,6 +145,6 @@ ppmod.onauto(async(function () {
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
-
-
+    CreateCompleteLevelAlertHook();
+    DoMapSpecificSetup();
 }), true);

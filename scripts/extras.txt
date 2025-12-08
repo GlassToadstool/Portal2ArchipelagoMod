@@ -74,47 +74,54 @@
     }
     "chapter 2.2"
     {
+        "title" "   Chapter 2: Laser Intro"
+        "subtitle"  ""
+        "command"   "map sp_a2_laser_intro"
+        "pic"   "vgui/chapters/chapter2"
+    }
+    "chapter 2.3"
+    {
         "title" "   Chapter 2: Laser Stairs"
         "subtitle"  ""
         "command"   "map sp_a2_laser_stairs"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.3"
+    "chapter 2.4"
     {
         "title" "   Chapter 2: Dual Lasers"
         "subtitle"  ""
         "command"   "map sp_a2_dual_lasers"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.4"
+    "chapter 2.5"
     {
         "title" "   Chapter 2: Laser Over Goo"
         "subtitle"  ""
         "command"   "map sp_a2_laser_over_goo"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.5"
+    "chapter 2.6"
     {
         "title" "   Chapter 2: Catapult Intro"
         "subtitle"  ""
         "command"   "map sp_a2_catapult_intro"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.6"
+    "chapter 2.7"
     {
         "title" "   Chapter 2: Trust Fling"
         "subtitle"  ""
         "command"   "map sp_a2_trust_fling"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.7"
+    "chapter 2.8"
     {
         "title" "   Chapter 2: Pit Flings"
         "subtitle"  ""
         "command"   "map sp_a2_pit_flings"
         "pic"   "vgui/chapters/chapter2"
     }
-    "chapter 2.8"
+    "chapter 2.9"
     {
         "title" "   Chapter 2: Fizzler Intro"
         "subtitle"  ""
