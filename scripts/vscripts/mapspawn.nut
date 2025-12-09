@@ -85,6 +85,12 @@ function ListEntities() {
 // Send complete check
 function PrintMapComplete() {
     printl("map_complete:" + GetMapName());
+	// Quit out after a delay
+	ppmod.wait(ExitToMenu, 2, "return_to_menu")
+}
+
+function ExitToMenu() {
+	SendToConsole("disconnect;startupmenu force");
 }
 
 // Fire complete send on map completion
