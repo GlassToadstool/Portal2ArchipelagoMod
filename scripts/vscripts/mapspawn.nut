@@ -123,13 +123,11 @@ function DoMapSpecificSetup() {
 function AttachDeathTrigger() {
     // Create interval that checks player's current health, if it hits 0 then send deathlink
     ppmod.interval(function() {
-        local player = ppmod.get("player", null); // probably should make global ::player <- XXX
-        local player_hp = player.GetHealth()
-        if (player_hp <= 0 && !sent_death_link) {
+        if (player.GetHealth() <= 0 && !sent_death_link) {
             sent_death_link = true;
-            printl("send deathlink")
+            printl("send_deathlink")
         }
-    })
+    }, 1)
 }
 
 ::text_queue <- TextQueue();
@@ -138,9 +136,12 @@ function AddToTextQueue(text) {
 }
 
 ::connected <- false;
+// TODO: function called by client on reception of map name to set connected to true
+// Then Delayed function in the below onauto that checks if connected or displays message that client is not connected
 
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
+    ::player = ppmod.get("player", null);
 	PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
