@@ -5,7 +5,6 @@ IncludeScript("textqueue")
 
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
-    printl("Trying to remove: " + entity_name)
 	local ent = null;
 	while (ent = ppmod.get(entity_name, ent)) {
         printl(ent + " : " + ent.GetModelName())
@@ -16,10 +15,10 @@ function DeleteEntity(entity_name) {
 // Disable the portal gun working with left and/or right click
 function DisablePortalGun(blue, orange) {
 	if (GetMapName() == "sp_a3_01") {
-		//wait 10 seconds then continue
+		//wait for animation to finish then remove the portal gun
 		ppmod.wait(function () {
 			ppmod.keyval("weapon_portalgun", "CanFirePortal2", false);
-		}, 10, "disable_portalgun2_sp_a3_01")
+		}, 13, "disable_portalgun2_sp_a3_01")
 	}
 	if (blue) {
 		ppmod.keyval("weapon_portalgun", "CanFirePortal1", false);
