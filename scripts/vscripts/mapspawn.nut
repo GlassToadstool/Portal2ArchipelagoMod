@@ -3,8 +3,24 @@ if (!("Entities" in this)) return;
 IncludeScript("ppmod")
 IncludeScript("textqueue")
 
+function ItemInList(item, list) {
+	foreach (i, value in list)
+	{
+		if (value == item) {
+			return true;
+		}
+	}
+	return false;
+}
+
+::scripted_fling_levels <- ["sp_a3_03", "sp_a3_transition01", "sp_a3_speed_flings", "sp_a4_jump_polarity"];
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
+	if (entity_name == "trigger_catapult" && ItemInList(GetMapName(), scripted_fling_levels)) {
+		printl("not removing trigger_catapult");
+		return;
+	}
+
 	local ent = null;
 	while (ent = ppmod.get(entity_name, ent)) {
         printl(ent + " : " + ent.GetModelName())
@@ -107,11 +123,12 @@ function ExitToMenu() {
 	SendToConsole("disconnect;startupmenu force");
 }
 
+::two_trigger_levels <- ["sp_a1_intro1", "sp_a4_finale1", "sp_a4_finale3"];
 // Fire complete send on map completion
 function CreateCompleteLevelAlertHook() {
 	local map = GetMapName();
 	// Some levels use transition script more than once
-	if (map == "sp_a1_intro1" || map == "sp_a4_finale1" || map == "sp_a4_finale3") {
+	if (ItemInList(map, two_trigger_levels)) {
 		transition_script_count = 1;
 	}
 
