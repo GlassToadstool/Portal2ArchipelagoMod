@@ -15,6 +15,12 @@ function DeleteEntity(entity_name) {
 
 // Disable the portal gun working with left and/or right click
 function DisablePortalGun(blue, orange) {
+	if (GetMapName() == "sp_a3_01") {
+		//wait 10 seconds then continue
+		ppmod.wait(function () {
+			ppmod.keyval("weapon_portalgun", "CanFirePortal2", false);
+		}, 10, "disable_portalgun2_sp_a3_01")
+	}
 	if (blue) {
 		ppmod.keyval("weapon_portalgun", "CanFirePortal1", false);
 	}
@@ -82,8 +88,17 @@ function ListEntities() {
 	}
 }
 
-// Send complete check
+function PrintMapCompleteNoExit() {
+    printl("map_complete:" + GetMapName());
+}
+
+::transition_script_count <- 0;
+// Send complete check and exit map
 function PrintMapComplete() {
+	if (transition_script_count > 0) {
+		transition_script_count -= 1;
+		return;
+	}
     printl("map_complete:" + GetMapName());
 	// Quit out after a delay
 	ppmod.wait(ExitToMenu, 2, "return_to_menu")
@@ -95,18 +110,21 @@ function ExitToMenu() {
 
 // Fire complete send on map completion
 function CreateCompleteLevelAlertHook() {
+	local map = GetMapName();
+	// Some levels use transition script more than once
+	if (map == "sp_a1_intro1" || map == "sp_a4_finale1" || map == "sp_a4_finale3") {
+		transition_script_count = 1;
+	}
 
-    local transition_script = ppmod.get("@transition_script", null)
-    if (transition_script) {
-        printl("transition script found, complete level hook created")
+	// For final level
+    if (map == "sp_a4_finale4"){
+        local transition = ppmod.get("ending_relay", null);
+        transition.ConnectOutput("OnTrigger", "PrintMapCompleteNoExit");
     }
-    ppmod.hook(transition_script, "RunScriptCode", PrintMapComplete, 1)
-
-    // For final level
-    if (GetMapName() == "sp_a4_finale4"){
-        transition = ppmod.get("ending_relay", null);
-        transition.ConnectOutput("OnTrigger", "PrintMapComplete")
-    }
+	else {
+		local transition_script = ppmod.get("@transition_script", null);
+		ppmod.hook(transition_script, "RunScriptCode", PrintMapComplete, 1);
+	}
 }
 
 function DoMapSpecificSetup() {
