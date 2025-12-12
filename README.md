@@ -1,7 +1,7 @@
 
-# Portal 2 Archipelago Mod
+# ![Portalpelago icon](Portalpelago.png) Portal 2 Archipelago Mod
 
-This is a Portal 2 mod designed for use with Archipelago, a multi-game colaborative randomiser.
+This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
 
 This must be used with the [Portal 2 APWorld and Client](https://github.com/GlassToadstool/Archipelago/releases).
 
@@ -36,16 +36,18 @@ sourcemods
      └─── ...
 ```
 3. Go to steam and you should see the mod in your steam library. Run it as you would a normal steam game. If it doesn't show up simply restart steam (closing the app completely not just the steam window) and it should appear
-4. Open the settings for the mod by rightclicking the mod in your steam library and select `Properties...`. Then in the launch options box add `-netconport 3000`. This allows the Client to speak to the game which is essential for using the mod.
+4. Open the settings for the mod by right clicking the mod in your steam library and select `Properties...`. Then in the launch options box add `-netconport 3000`. This allows the Client to speak to the game which is essential for using the mod.
     
 ## Acknowledgements
 
 ### Mod Creators
+
  - **Dyroha** - Lead Developer
  - **Proplayen** - Logic Design
  - **JD** - Graphics
  - **Kaito Kid** - Answering lots of questions about APWorld development
 
- #### Testers
- - **Your name here**
+### Testers
+
+buzzman5001, ChaiMint, Default Miserable, Kit Lemonfoot, MarioXTurn, miketizzle411, Pigmaster100, Scrungip
 

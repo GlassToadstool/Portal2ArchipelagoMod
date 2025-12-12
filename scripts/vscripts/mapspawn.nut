@@ -168,6 +168,7 @@ function AttachDeathTrigger() {
             printl("send_deathlink")
         }
     }, 1)
+    printl("DeathLink active")
 }
 
 ::text_queue <- TextQueue();
