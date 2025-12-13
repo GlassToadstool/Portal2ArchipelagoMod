@@ -1,7 +1,7 @@
 
 # ![Portalpelago icon](Portalpelago.png) Portal 2 Archipelago Mod
 
-`version 0.1`
+`version 0.2`
 
 This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
 
@@ -15,7 +15,7 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 - [x]  Randomised chapter map order - to be updated
 - [x]  Goal completing the final level
 - [x]  Death Link
-- [ ]  Traps
+- [x]  Traps
 - [ ]  In game messages (reflecting client messages)
 - [ ]  Additional locations - Wheatly monitors, achivements, item gains
 - [ ]  Extra items not in vanilla game

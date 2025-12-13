@@ -2,6 +2,7 @@ if (!("Entities" in this)) return;
 
 IncludeScript("ppmod")
 IncludeScript("textqueue")
+IncludeScript("traphandling")
 
 function ItemInList(item, list) {
 	foreach (i, value in list)
@@ -182,11 +183,11 @@ function AddToTextQueue(text) {
 
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
-    ::player = ppmod.get("player", null);
 	PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
     DoMapSpecificSetup();
+    CreateLPP();
 }), true);
