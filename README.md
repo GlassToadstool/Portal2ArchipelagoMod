@@ -12,11 +12,11 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 
 - [x]  Item Collection
 - [x]  Check Making
-- [x]  Randomised chapter map order - to be updated
+- [x]  Randomized chapter map order - to be updated
 - [x]  Goal completing the final level
 - [x]  Death Link
-- [x]  Traps
-- [ ]  In game messages (reflecting client messages)
+- [x]  Traps - Only 3 at the moment
+- [x]  In game messages (reflecting client messages)
 - [ ]  Additional locations - Wheatly monitors, achivements, item gains
 - [ ]  Extra items not in vanilla game
 - [ ]  More to come...
