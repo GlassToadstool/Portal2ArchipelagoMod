@@ -173,8 +173,8 @@ function AttachDeathTrigger() {
 }
 
 ::text_queue <- TextQueue();
-function AddToTextQueue(text) {
-	text_queue.AddToQueue(text);
+function AddToTextQueue(text, color = null) {
+	text_queue.AddToQueue(text, color);
 }
 
 ::connected <- false;
