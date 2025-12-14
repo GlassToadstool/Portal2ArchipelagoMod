@@ -3,6 +3,7 @@
 	game 		"Portal 2 Archipelago Mod"
 	title 		"Portal 2 Archipelago Mod"
 	GameData	"portal2.fgd"
+	icon		"resource/icon"
 	gamelogo 	1
 
 	SupportsDX8     0
