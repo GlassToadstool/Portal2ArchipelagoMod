@@ -24,11 +24,11 @@ function DeleteEntity(entity_name) {
 
 	local ent = null;
 	while (ent = ppmod.get(entity_name, ent)) {
-        printl(ent + " : " + ent.GetModelName())
 		ent.Destroy()
 	}
 }
 
+::portalgun_2_disabled <- false;
 // Disable the portal gun working with left and/or right click
 function DisablePortalGun(blue, orange) {
 	if (GetMapName() == "sp_a3_01") {
@@ -37,6 +37,11 @@ function DisablePortalGun(blue, orange) {
 			ppmod.keyval("weapon_portalgun", "CanFirePortal2", false);
 		}, 13, "disable_portalgun2_sp_a3_01")
 	}
+
+	if (GetMapName() == "sp_a2_intro") {
+		portalgun_2_disabled = true;
+	}
+
 	if (blue) {
 		ppmod.keyval("weapon_portalgun", "CanFirePortal1", false);
 	}
@@ -154,9 +159,9 @@ function DoMapSpecificSetup() {
     }
     else if (current_map == "sp_a2_intro") {
         ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
-            DisablePortalGun(false, true);
+            DisablePortalGun(false, portalgun_2_disabled);
             printl("item_collected:Portal Gun Upgrade");
-        }, 2);
+        }, 0.25);
     }
 }
 
@@ -166,7 +171,8 @@ function AttachDeathTrigger() {
     ppmod.interval(function() {
         if (player.GetHealth() <= 0 && !sent_death_link) {
             sent_death_link = true;
-            printl("send_deathlink")
+            printl("send_deathlink");
+			SendToConsole("restart");
         }
     }, 1)
     printl("DeathLink active")
@@ -188,6 +194,7 @@ ppmod.onauto(async(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
+	AttachDeathTrigger();
     DoMapSpecificSetup();
     CreateLPP();
 }), true);
