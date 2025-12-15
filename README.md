@@ -56,5 +56,5 @@ The folder structure should look like this:
 
 ### Testers
 
-**ahhh reptar, buzzman5001, ChaiMint, Default Miserable, Fewffwa, Fox, Kit Lemonfoot, Knux, MarioXTurn, miketizzle411, Pigmaster100, Rya, Scrungip, studkid**
+**22TwentyTwo, ahhh reptar, buzzman5001, ChaiMint, Default Miserable, Fewffwa, Fox, Grenhunterr, Kit Lemonfoot, Knux, MarioXTurn, miketizzle411, Pigmaster100, Rya, Scrungip, studkid**
 
