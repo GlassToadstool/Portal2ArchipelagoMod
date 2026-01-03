@@ -53,6 +53,7 @@ The folder structure should look like this:
  - **Proplayen** - Logic Design
  - **JD** - Graphics
  - **Kaito Kid** - Answering lots of questions about APWorld development
+ - **studkid** - UT Support
 
 ### Testers
 

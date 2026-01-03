@@ -14,7 +14,7 @@ function ItemInList(item, list) {
 	return false;
 }
 
-::scripted_fling_levels <- ["sp_a3_03", "sp_a3_transition01", "sp_a3_speed_flings", "sp_a4_jump_polarity"];
+::scripted_fling_levels <- ["sp_a3_03", "sp_a3_bomb_flings", "sp_a3_transition01", "sp_a3_speed_flings", "sp_a3_end", "sp_a4_jump_polarity"];
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name) {
 	if (entity_name == "trigger_catapult" && ItemInList(GetMapName(), scripted_fling_levels)) {
