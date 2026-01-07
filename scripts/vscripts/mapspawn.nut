@@ -130,6 +130,7 @@ function ExitToMenu() {
 }
 
 ::two_trigger_levels <- ["sp_a1_intro1", "sp_a4_finale1", "sp_a4_finale3"];
+::non_elevator_maps <- ["sp_a1_wakeup", "sp_a2_turret_intro", "sp_a2_bts1", "sp_a2_bts2", "sp_a2_bts3", "sp_a2_bts4", "sp_a2_bts5", "sp_a2_bts6", "sp_a2_core", "sp_a3_00", "sp_a3_01", "sp_a4_laser_platform", "sp_a4_finale1", "sp_a4_finale2", "sp_a4_finale3", "sp_a4_finale4"];
 // Fire complete send on map completion
 function CreateCompleteLevelAlertHook() {
 	local map = GetMapName();
@@ -143,10 +144,20 @@ function CreateCompleteLevelAlertHook() {
         local transition = ppmod.get("ending_relay", null);
         transition.ConnectOutput("OnTrigger", "PrintMapCompleteNoExit");
     }
-	else {
+	else if (ItemInList(map, non_elevator_maps) ) {
 		local transition_script = ppmod.get("@transition_script", null);
 		ppmod.hook(transition_script, "RunScriptCode", PrintMapComplete, 1);
 	}
+    else {
+        local cl = Entities.FindByName(null, "@transition_from_map");
+        if (cl) {
+            cl.ConnectOutput("OnTrigger", "PrintMapComplete")
+            printl("Connected @transition_from_map trigger")
+        } else {
+            printl("No @transition_from_map found")
+        }
+        DeleteEntity("@exit_teleport");
+    }
 }
 
 function DoMapSpecificSetup() {
