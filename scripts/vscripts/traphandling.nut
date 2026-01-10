@@ -71,6 +71,7 @@ function DialogTrap() {
 	dt.SetFade(0.1, 0.1);
 	dt.Display(15);
 }
+
 ::colors <- ["255 0 0", "0 255 0", "0 0 255", "255 255 0", "255 0 255", "0 255 255"];
 function CubeConfettiTrap() {
 	// Spawn a bunch of multicolored cubes under the player
@@ -82,4 +83,13 @@ function CubeConfettiTrap() {
 			ppmod.fire(cube, "Dissolve", "", 3, null, null);
 		}
 	});
+}
+
+function SlipperyFloorTrap() {
+    local trap = async(function () {
+        local pplayer = ppmod.player(GetPlayer());
+        yield pplayer.init();
+        pplayer.friction(0.0);
+    })
+    trap();
 }
