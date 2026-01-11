@@ -15,9 +15,9 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 - [x]  Randomized map order in each chapter
 - [x]  Goal completing the final level
 - [x]  Death Link
-- [x]  Traps - Only 3 at the moment
+- [x]  Traps
 - [x]  In game messages (reflecting client messages)
-- [ ]  Additional locations - Wheatly monitors, achivements, item gains
+- [ ]  Additional locations - Wheatley monitors, achievements, item gains
 - [ ]  Extra items not in vanilla game
 - [ ]  More to come...
 ## Installation
