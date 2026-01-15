@@ -21,13 +21,16 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 - [ ]  Additional locations - Wheatley monitors, achievements, item gains
 - [ ]  Extra items not in vanilla game
 - [ ]  More to come...
+
 ## Installation
 
 To use this mod you must fist have a copy of Portal 2 downloaded on your steam library.
 
-1. Download the files from this repository 
+1. Download the files from this repository using the `<> Code` dropdown above and clicking Download ZIP
 
-2. Place the contents in a folder named `Portal2Archipelago` in your steam `sourcemods` folder. On windows this may be found at
+    ![Download zip](zip-download.png)
+
+2. Extract the contents into your steam `sourcemods` folder and name the new folder `Portal2Archipelago` . On windows this may be found at
 `C:\Program Files (x86)\Steam\steamapps\sourcemods` on Windows, or at `~/.local/share/Steam/steamapps/sourcemods/` on Linux
 The folder structure should look like this:
     ```
@@ -53,6 +56,7 @@ The folder structure should look like this:
  - **Dyroha** - Lead Developer
  - **Proplayen** - Logic Design
  - **JD** - Graphics
+ - **Clone Fighter** - Graphics
  - **Kaito Kid** - Answering lots of questions about APWorld development
  - **studkid** - UT Support
 
