@@ -26,6 +26,7 @@
 	"Kaito Kid" "CreditsOutroText"
 	"sudkid" "CreditsOutroText"
 	"Clone Fighter" "CreditsOutroText"
+    "Charged_Neon" "CreditsOutroText"
 	">BETA TESTERS:" "CreditsOutroText"
 	"22TwentyTwo" "CreditsOutroText"
 	"Bfbfan26" "CreditsOutroText"
@@ -43,7 +44,6 @@
 	"Pigmaster100" "CreditsOutroText"
 	"Rya" "CreditsOutroText"
 	"Scrungip" "CreditsOutroText"
-	"studkid" "CreditsOutroText"
 	
 }
 
