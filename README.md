@@ -49,16 +49,16 @@ sourcemods
 ```
 
 6. Open Steam, and you should see a new game named "Portal 2 Archipelago Mod" in your game library.
-    > [!NOTE]
-    > If the game does not appear in your Steam game library, please exit (completely closing) Steam and re-launch Steam.
+> [!NOTE]
+> If the game does not appear in your Steam game library, please exit (completely closing) Steam and re-launch Steam.
 7. We need to change the properties of the game in order to connect to the Archipelago Portal 2 APWorld client. Right-click the "Portal 2 Archipelago Mod" game in your Library, and select the "Properties..." menu option.
 8. In the dialog that appears, navigate to the "General" menu item, then in the right pane of the dialog navigate to "Launch Options". In the text input:
     - On Windows, put:
         - `-netconport 3000`
     - On Linux, put: 
         - `%command% -netconport 3000`
-            > [!TIP]
-            > If on Linux, and you cannot get the game to open as expected, you may need to run the game using Proton, following the Windows install steps.
+> [!TIP]
+> If on Linux, and you cannot get the game to open as expected, you may need to run the game using Proton, following the Windows install steps.
 
 ## Acknowledgements
 
