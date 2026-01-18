@@ -95,6 +95,50 @@ function DeleteCoreOnOutput(core_name, target_name, output) {
     }
 }
 
+// Ran if no PotatOS and started sp_a4_finale4
+function BlockWheatleyFight() {
+    ppmod.create("info_target_instructor_hint").then(function (target) {
+        target.targetname = "hint_target_no_potatos";
+        local place = ppmod.get("breaker_socket_button").GetOrigin();
+        target.SetOrigin(place);
+        DeleteEntity("breaker_socket_button");
+        DeleteEntity("breaker_hint");
+    });
+
+    ppmod.create("env_instructor_hint").then(function (hint) {
+        hint.targetname = "hudhint_no_potatos";
+        hint.hint_target = "hint_target_no_potatos";
+        hint.hint_static = 0;
+        hint.hint_caption = "PotatOS not unlocked";
+        hint.hint_icon_onscreen = "icon_alert";
+        hint.hint_color = "255 50 50"
+    });
+
+    ppmod.addoutput("trigger_portal_cleanser", "OnStartTouch", "hudhint_no_potatos", "ShowHint")
+}
+
+// Ran if no PotatOS and started sp_a3_transition01
+function RemovePotatOS() {
+    ppmod.create("info_target_instructor_hint").then(function (target) {
+        target.targetname = "hint_target_no_potatos";
+        local place = ppmod.get("sphere_entrance_potatos_button").GetOrigin();
+        target.SetOrigin(place);
+        DeleteEntity("sphere_entrance_lift_relay");
+    });
+
+    ppmod.create("env_instructor_hint").then(function (hint) {
+        hint.targetname = "hudhint_no_potatos";
+        hint.hint_target = "hint_target_no_potatos";
+        hint.hint_static = 0;
+        hint.hint_caption = "PotatOS not unlocked";
+        hint.hint_icon_onscreen = "icon_alert";
+        hint.hint_color = "255 50 50"
+    });
+
+    ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_check:potatos\")")
+    ppmod.addoutput("sphere_entrance_potatos_button", "OnPressed", "hudhint_no_potatos", "ShowHint")
+}
+
 //GetWheatleyMonitorDestructionCount() can be used for checking those advancements by seeing difference before at after map finish?
 
 // When entering map send that info so we can delete entities

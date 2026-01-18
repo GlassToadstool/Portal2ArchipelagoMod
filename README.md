@@ -71,6 +71,7 @@ sourcemods
 - **studkid** - UT Support
 - **Clone Fighter** - Graphics
 - **Charged_Neon** - Documentation
+- **LimeDreaming** - Custom Font
 
 ### Testers
 
