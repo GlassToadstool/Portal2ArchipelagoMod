@@ -139,6 +139,10 @@ function RemovePotatOS() {
     ppmod.addoutput("sphere_entrance_potatos_button", "OnPressed", "hudhint_no_potatos", "ShowHint")
 }
 
+function RemovePotatosFromGun() {
+	ppmod.get("logic_playerproxy").RemovePotatosFromPortalgun();
+}
+
 //GetWheatleyMonitorDestructionCount() can be used for checking those advancements by seeing difference before at after map finish?
 
 // When entering map send that info so we can delete entities
