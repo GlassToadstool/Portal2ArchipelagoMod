@@ -35,7 +35,7 @@ function DisablePortalGun(blue, orange) {
 		//wait for animation to finish then remove the portal gun
 		ppmod.wait(function () {
 			ppmod.keyval("weapon_portalgun", "CanFirePortal2", false);
-		}, 13, "disable_portalgun2_sp_a3_01")
+		}, 13, "disable_portalgun2_sp_a3_01");
 	}
 
 	if (GetMapName() == "sp_a2_intro") {
@@ -52,7 +52,11 @@ function DisablePortalGun(blue, orange) {
 
 // Disable pickup of entity by class, name or model?
 function DisableEntityPickup(entity_name) {
-	ppmod.keyval(entity_name, "PickupEnabled", false)
+	ppmod.keyval(entity_name, "PickupEnabled", false);
+}
+
+function DisableEntityPhysics(entity_name) {
+    ppmod.keyval(entity_name, "MoveType", 4);
 }
 
 // Make fizzlers deadly - Not used at the moment
@@ -77,21 +81,21 @@ function DeleteCoreOnOutput(core_name, target_name, output) {
     local delay = 5;
     if (core_name == "@core01") {
         ppmod.addscript(target_name, output, function () {
-            printl("@core01 being Deleted")
+            printl("@core01 being Deleted");
             DeleteEntity("@core01");
-        }, delay)
+        }, delay);
     }
     else if (core_name == "@core02") {
         ppmod.addscript(target_name, output, function () {
-            printl("@core02 being Deleted")
+            printl("@core02 being Deleted");
             DeleteEntity("@core02");
-        }, delay)
+        }, delay);
     }
     else if (core_name == "@core03") {
         ppmod.addscript(target_name, output, function () {
-            printl("@core03 being Deleted")
+            printl("@core03 being Deleted");
             DeleteEntity("@core03");
-        }, delay)
+        }, delay);
     }
 }
 
@@ -111,7 +115,7 @@ function BlockWheatleyFight() {
         hint.hint_static = 0;
         hint.hint_caption = "PotatOS not unlocked";
         hint.hint_icon_onscreen = "icon_alert";
-        hint.hint_color = "255 50 50"
+        hint.hint_color = "255 50 50";
     });
 
     ppmod.addoutput("trigger_portal_cleanser", "OnStartTouch", "hudhint_no_potatos", "ShowHint")
