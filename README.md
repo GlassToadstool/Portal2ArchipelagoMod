@@ -59,6 +59,14 @@ sourcemods
         - `%command% -netconport 3000`
 > [!TIP]
 > If on Linux, and you cannot get the game to open as expected, you may need to run the game using Proton, following the Windows install steps.
+9. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Archipelago/releases/latest) file into the Archipelago launcher using the "Install APWorld" option
+
+## Running
+1. Open the "Portal 2 Client" from the Archipelago launcher
+2. Input the multiworld server adress into the "Server" field at the top of the new window and press connect
+3. Input your slot name into the command field and press enter
+4. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
+5. From the game main menu select "Play Portal Archipelago"
 
 ## Acknowledgements
 
