@@ -1,9 +1,13 @@
 "Extras"
 {
-    "none"
+    "info1"
     {
-        "title" "Connect to a game"
+        "title" "Connect to game to load levels"
         "subtitle"  ""
     }
-
+    "info2"
+    {
+        "title" "Read setup carefully for help"
+        "subtitle"  ""
+    }
 }
