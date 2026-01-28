@@ -194,6 +194,7 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
+// TODO: remove in release v0.4
 function DoMapSpecificSetup() {
     local current_map = GetMapName();
     if (current_map == "sp_a1_intro3") {
@@ -205,7 +206,7 @@ function DoMapSpecificSetup() {
     else if (current_map == "sp_a2_intro") {
         ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
             DisablePortalGun(false, portalgun_2_disabled);
-            printl("item_collected:Portal Gun Upgrade");
+            printl("item_collected:Upgraded Portal Gun");
         }, 0.25);
     }
 }
