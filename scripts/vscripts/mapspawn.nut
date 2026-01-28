@@ -59,24 +59,6 @@ function DisableEntityPhysics(entity_name) {
     ppmod.keyval(entity_name, "MoveType", 4);
 }
 
-// Make fizzlers deadly - Not used at the moment
-function CreateMurderFizzlers() {
-	local fiz = null;
-	while (fiz = ppmod.get("trigger_portal_cleanser", fiz)) {
-		// Make it red
-		// Currently can't do this unless we create a box in the space with a colour
-		// which we will do later
-
-		// Make it kill the player
-		ppmod.addscript(fiz, "OnStartTouch", function () {
-			local player = GetPlayer();
-			if (activator == player) {
-				SendToConsole("kill");
-			}
-		})
-	}
-}
-
 function DeleteCoreOnOutput(core_name, target_name, output) {
     local delay = 5;
     if (core_name == "@core01") {
@@ -172,9 +154,9 @@ function PrintMapComplete() {
 		transition_script_count -= 1;
 		return;
 	}
-    printl("map_complete:" + GetMapName());
+    PrintMapCompleteNoExit();
 	// Quit out after a delay
-	ppmod.wait(ExitToMenu, 2, "return_to_menu")
+	ppmod.wait(ExitToMenu, 2, "return_to_menu");
 }
 
 function ExitToMenu() {
