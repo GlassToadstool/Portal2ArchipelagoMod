@@ -194,7 +194,6 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
-// TODO: remove in release v0.4
 function DoMapSpecificSetup() {
     local current_map = GetMapName();
     if (current_map == "sp_a1_intro3") {
