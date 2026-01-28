@@ -121,7 +121,7 @@ function RemovePotatOS() {
         hint.hint_color = "255 50 50"
     });
 
-    ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_check:potatos\")")
+    ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_check:PotatOS\")")
     ppmod.addoutput("sphere_entrance_potatos_button", "OnPressed", "hudhint_no_potatos", "ShowHint")
 }
 
