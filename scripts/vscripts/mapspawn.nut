@@ -129,7 +129,31 @@ function RemovePotatosFromGun() {
 	ppmod.get("logic_playerproxy").RemovePotatosFromPortalgun();
 }
 
-//GetWheatleyMonitorDestructionCount() can be used for checking those advancements by seeing difference before at after map finish?
+function AddWheatlyMonitoBreakCheck() {
+    // Loop through all logic_relay
+    local relay = null;
+    while (relay = ppmod.get("logic_relay", relay)) {
+        // Check if it contains with relay_break e.g. monitor1-relay_break
+		local name = relay.GetName();
+        local is_break = name.find("relay_break") != null;
+        if (is_break) {
+            // Check it is not the relay_break_output (which seems to do nothing)
+            local is_not_output = name.find("output") == null;
+            if (is_not_output) {
+                // Add output on trigger to print the map name and the trigger's name e.g. sp_a4_tb_intro monitor1
+                if (name.find("1") == null) {
+                    ppmod.addscript(name, "OnTrigger", function() {
+                        printl("monitor_break:" + GetMapName() + " monitor2");
+                    });
+                } else {
+                    ppmod.addscript(name, "OnTrigger", function() {
+                        printl("monitor_break:" + GetMapName() + " monitor1");
+                    });
+                }
+            }
+        }
+	}
+}
 
 // When entering map send that info so we can delete entities
 function PrintMapName() {
@@ -240,6 +264,7 @@ ppmod.onauto(async(function () {
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
+    AddWheatlyMonitoBreakCheck();
     DoMapSpecificSetup();
     CreateLPP();
 }), true);
