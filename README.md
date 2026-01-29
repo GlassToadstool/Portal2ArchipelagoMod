@@ -1,6 +1,6 @@
 ![Portal 2 Archipelago Mod](md-imgs/Portal2pelago-LOGO.png)
 
-`version 0.3`
+`Version 0.4`
 `Stable` `In Development`
 
 This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
@@ -19,7 +19,7 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 - [x]  Death Link
 - [x]  Traps
 - [x]  In game messages (reflecting client messages)
-- [ ]  Additional locations - Wheatley monitors, achievements, item gains
+- [X]  Additional locations - Wheatley monitors, item gains
 - [ ]  More to come...
 
 ## Installation
