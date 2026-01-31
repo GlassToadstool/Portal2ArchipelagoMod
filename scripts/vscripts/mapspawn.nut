@@ -243,12 +243,20 @@ function DoMapSpecificSetup() {
         ppmod.addscript(ppmod.get(Vector(25, 1958, -299), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
         }, 2);
+        // Backup trigger for speedrun pickup
+        ppmod.addscript(ppmod.get(Vector(-704, 1856, -32), 2, "trigger_multiple"), "OnStartTouch", function(){
+            printl("item_collected:Portal Gun");
+        }, 2);
     }
     else if (current_map == "sp_a2_intro") {
         ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
             DisablePortalGun(false, portalgun_2_disabled);
             printl("item_collected:Upgraded Portal Gun");
         }, 0.25);
+        // Backup trigger for speedrun pickup
+        ppmod.addscript(ppmod.get(Vector(-360, 440, -10680), 2, "trigger_once"), "OnStartTouch", function(){
+            printl("item_collected:Upgraded Portal Gun");
+        }, 2);
     }
 }
 
