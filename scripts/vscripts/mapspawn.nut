@@ -155,6 +155,24 @@ function AddWheatlyMonitoBreakCheck() {
 	}
 }
 
+
+::CreateRatDenButton <- async(function (name, position, angle) {
+    yield ppmod.button("prop_button", position, angle);
+    local button = yielded;
+    button.OnPressed(function ():(name) {
+        printl("button_check:" + name);
+    });
+    CreateAPHologram(position + Vector(0, 0, 100), angle + Vector(0, 90, 0));
+})
+
+::CreateAPHologram <- async(function (position, angle) {
+    yield ppmod.create("effects/ap/archipelago_hologram.mdl");
+    local holo = yielded;
+    holo.solid = 0;
+    holo.SetOrigin(position);
+    holo.SetAngles(angle);
+})
+
 // When entering map send that info so we can delete entities
 function PrintMapName() {
 	printl("map_name:" + GetMapName());
