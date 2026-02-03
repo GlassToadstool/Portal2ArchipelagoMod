@@ -121,7 +121,6 @@ function RemovePotatOS() {
         hint.hint_color = "255 50 50"
     });
 
-    ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")")
     ppmod.addoutput("sphere_entrance_potatos_button", "OnPressed", "hudhint_no_potatos", "ShowHint")
 }
 
@@ -259,6 +258,9 @@ function DoMapSpecificSetup() {
         ppmod.addscript(ppmod.get(Vector(-360, 440, -10680), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
         }, 2);
+    }
+    else if (current_map == "sp_a3_transition01") {
+        ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")")
     }
 }
 
