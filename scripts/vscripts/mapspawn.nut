@@ -59,6 +59,20 @@ function DisableEntityPhysics(entity_name) {
     ppmod.keyval(entity_name, "MoveType", 4);
 }
 
+function BlockFloorButtons() {
+    local ent = null;
+	while (ent = ppmod.get("prop_floor_button", ent)) {
+		// Get origin and maybe angle?
+        local position = ent.GetOrigin();
+        local angles = ent.GetAngles();
+        // Place box around it
+        ppmod.create("/props/archipelago/ap_floorbuttonframe.mdl").then(function (box):(position, angles) {
+            box.SetOrigin(position);
+            box.SetAngles(angles);
+        })
+	}
+}
+
 function DeleteCoreOnOutput(core_name, target_name, output) {
     local delay = 5;
     if (core_name == "@core01") {
@@ -164,15 +178,36 @@ function AddWheatlyMonitoBreakCheck() {
     CreateAPHologram(position + Vector(0, 0, 75) * holo_scale, angle + Vector(0, 90, 0), holo_scale);
 })
 
-::CreateAPHologram <- async(function (position, angle, scale) {
+::CreateAPHologram <- async(function (position, angle, scale, new_parent = null, attachment_point = null, skin = 0) {
     yield ppmod.create("effects/ap/archipelago_hologram.mdl");
     local holo = yielded;
     holo.solid = 0;
-    holo.SetOrigin(position);
-    holo.SetAngles(angle);
+    holo.skin = skin;
     holo.modelscale = scale;
     holo.SetAnimation("idle");
+    if (new_parent != null) {
+        holo.SetParent(new_parent);
+        if (attachment_point != null) {
+            holo.SetParentAttachmentMaintainOffset(attachment_point);
+        }
+    }
+    holo.SetOrigin(position);
+    holo.SetAngles(angle);
 })
+
+function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offset, skin = 0) {
+    local ent = null;
+    local count = 'a';
+	while (ent = ppmod.get(entity_name, ent)) {
+		// Get origin and maybe angle?
+        local position = ent.GetOrigin();
+        local angles = ent.GetAngles();
+        local name = entity_name + count;
+        count++;
+        ent.targetname = name;
+        CreateAPHologram(position + Vector(0, 0, offset), angles, holo_scale, name, attachment_point, skin);
+	}
+}
 
 // When entering map send that info so we can delete entities
 function PrintMapName() {
