@@ -59,9 +59,9 @@ function DisableEntityPhysics(entity_name) {
     ppmod.keyval(entity_name, "MoveType", 4);
 }
 
-function BlockFloorButtons() {
+function AddFloorButtonFrame(entity_name) {
     local ent = null;
-	while (ent = ppmod.get("prop_floor_button", ent)) {
+	while (ent = ppmod.get(entity_name, ent)) {
 		// Get origin and maybe angle?
         local position = ent.GetOrigin();
         local angles = ent.GetAngles();
@@ -71,6 +71,34 @@ function BlockFloorButtons() {
             box.SetAngles(angles);
         })
 	}
+}
+
+function AddButtonFrame(entity_name) {
+    local ent = null;
+	while (ent = ppmod.get(entity_name, ent)) {
+		// Get origin and maybe angle?
+        local position = ent.GetOrigin();
+        local angles = ent.GetAngles();
+        // Place box around it
+        ppmod.create("/props/archipelago/ap_buttonframe.mdl").then(function (box):(position, angles) {
+            box.SetOrigin(position);
+            box.SetAngles(angles);
+        })
+
+        local model = "";
+        if (entity_name == "prop_under_button") {
+            model = "props_underground/underground_testchamber_button.mdl";
+        } else if (entity_name == "prop_button") {
+            model = "props/switch001.mdl";
+        }
+        // Replace the button with just the model so it doesn't activate
+        ppmod.create(model).then(function (btn):(position, angles) {
+            btn.SetOrigin(position);
+            btn.SetAngles(angles);
+        })
+	}
+
+    DeleteEntity(entity_name);
 }
 
 function DeleteCoreOnOutput(core_name, target_name, output) {
