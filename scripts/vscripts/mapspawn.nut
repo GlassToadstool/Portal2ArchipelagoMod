@@ -272,27 +272,32 @@ function CreateCompleteLevelAlertHook() {
     }
 }
 
+function IncineratorDisablePortalGun() {
+    ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
+        DisablePortalGun(false, portalgun_2_disabled);
+    }, 0.25);
+}
+
 function DoMapSpecificSetup() {
     local current_map = GetMapName();
     if (current_map == "sp_a1_intro3") {
         // portalgun pickup trigger here doesn't have a name so will have to use Vector search
         ppmod.addscript(ppmod.get(Vector(25, 1958, -299), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
-        }, 2);
+        }, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-704, 1856, -32), 2, "trigger_multiple"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
-        }, 2);
+        }, 0);
     }
     else if (current_map == "sp_a2_intro") {
         ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
-            DisablePortalGun(false, portalgun_2_disabled);
             printl("item_collected:Upgraded Portal Gun");
-        }, 0.25);
+        }, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-360, 440, -10680), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
-        }, 2);
+        }, 0);
     }
     else if (current_map == "sp_a3_transition01") {
         ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")")
