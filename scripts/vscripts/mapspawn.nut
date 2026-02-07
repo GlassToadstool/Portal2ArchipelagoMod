@@ -16,7 +16,7 @@ function ItemInList(item, list) {
 
 ::scripted_fling_levels <- ["sp_a3_03", "sp_a3_bomb_flings", "sp_a3_transition01", "sp_a3_speed_flings", "sp_a3_end", "sp_a4_jump_polarity"];
 // Deletes entities not received yet can be done by class, name or model
-function DeleteEntity(entity_name) {
+function DeleteEntity(entity_name, create_holo = true) {
 	if (entity_name == "trigger_catapult" && ItemInList(GetMapName(), scripted_fling_levels)) {
 		printl("not removing trigger_catapult");
 		return;
@@ -24,7 +24,17 @@ function DeleteEntity(entity_name) {
 
 	local ent = null;
 	while (ent = ppmod.get(entity_name, ent)) {
-		ent.Destroy()
+        // If trigger_catapult check if props/faith_plate.mdl is nearby before removing
+        if (entity_name == "trigger_catapult") {
+            if (ppmod.get(ent.GetOrigin(), 30, "models/props/faith_plate.mdl") == null && ppmod.get(ent.GetOrigin(), 30, "models/props/faith_plate_128.mdl") == null) {
+                continue;
+            }
+        }
+
+        if (create_holo) {
+            CreateAPHologram(ent.GetOrigin() + Vector(0, 0, -50), ent.GetAngles(), 0.7, null, null, 4);
+        }
+		ent.Destroy();
 	}
 }
 
@@ -71,6 +81,7 @@ function AddFloorButtonFrame(entity_name) {
             box.SetAngles(angles);
         })
 	}
+    AttachHologramToEntity(entity_name, null, 1, 40, 4);
 }
 
 function AddButtonFrame(entity_name) {
@@ -97,8 +108,8 @@ function AddButtonFrame(entity_name) {
             btn.SetAngles(angles);
         })
 	}
-
-    DeleteEntity(entity_name);
+    AttachHologramToEntity(entity_name, null, 0.66, 20, 4);
+    DeleteEntity(entity_name, false);
 }
 
 function DeleteCoreOnOutput(core_name, target_name, output) {
@@ -106,19 +117,19 @@ function DeleteCoreOnOutput(core_name, target_name, output) {
     if (core_name == "@core01") {
         ppmod.addscript(target_name, output, function () {
             printl("@core01 being Deleted");
-            DeleteEntity("@core01");
+            DeleteEntity("@core01", false);
         }, delay);
     }
     else if (core_name == "@core02") {
         ppmod.addscript(target_name, output, function () {
             printl("@core02 being Deleted");
-            DeleteEntity("@core02");
+            DeleteEntity("@core02", false);
         }, delay);
     }
     else if (core_name == "@core03") {
         ppmod.addscript(target_name, output, function () {
             printl("@core03 being Deleted");
-            DeleteEntity("@core03");
+            DeleteEntity("@core03", false);
         }, delay);
     }
 }
@@ -129,8 +140,8 @@ function BlockWheatleyFight() {
         target.targetname = "hint_target_no_potatos";
         local place = ppmod.get("breaker_socket_button").GetOrigin();
         target.SetOrigin(place);
-        DeleteEntity("breaker_socket_button");
-        DeleteEntity("breaker_hint");
+        DeleteEntity("breaker_socket_button", false);
+        DeleteEntity("breaker_hint", false);
     });
 
     ppmod.create("env_instructor_hint").then(function (hint) {
@@ -151,7 +162,7 @@ function RemovePotatOS() {
         target.targetname = "hint_target_no_potatos";
         local place = ppmod.get("sphere_entrance_potatos_button").GetOrigin();
         target.SetOrigin(place);
-        DeleteEntity("sphere_entrance_lift_relay");
+        DeleteEntity("sphere_entrance_lift_relay", false);
     });
 
     ppmod.create("env_instructor_hint").then(function (hint) {
@@ -191,6 +202,8 @@ function AddWheatlyMonitoBreakCheck() {
                         printl("monitor_break:" + GetMapName() + " monitor1");
                     });
                 }
+                // Add hologram
+                CreateAPHologram(relay.GetOrigin(), Vector(0, 0, 0), 0.9, null, null, 0);
             }
         }
 	}
@@ -296,7 +309,7 @@ function CreateCompleteLevelAlertHook() {
         } else {
             printl("No @transition_from_map found")
         }
-        DeleteEntity("@exit_teleport");
+        DeleteEntity("@exit_teleport", false);
     }
 }
 
@@ -313,15 +326,19 @@ function DoMapSpecificSetup() {
         ppmod.addscript(ppmod.get(Vector(25, 1958, -299), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
         }, 0);
+        CreateAPHologram(Vector(25, 1958, -299), Vector(0, 0, 0), 0.66, null, null, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-704, 1856, -32), 2, "trigger_multiple"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
         }, 0);
     }
     else if (current_map == "sp_a2_intro") {
-        ppmod.addscript(ppmod.get("player_near_portalgun", null), "OnStartTouch", function(){
+        local gun_trigger = ppmod.get("player_near_portalgun", null);
+        ppmod.addscript(gun_trigger, "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
         }, 0);
+        // Create hologram
+        CreateAPHologram(gun_trigger.GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-360, 440, -10680), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
@@ -329,6 +346,7 @@ function DoMapSpecificSetup() {
     }
     else if (current_map == "sp_a3_transition01") {
         ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")")
+        CreateAPHologram(ppmod.get("sphere_entrance_potatos_button").GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
     }
 }
 
