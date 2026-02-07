@@ -27,14 +27,13 @@ This must be used with the [Portal 2 APWorld and Client](https://github.com/Glas
 To use this mod you must first have a copy of Portal 2 downloaded in your Steam library.
 
 1. Download and install [Steam](https://store.steampowered.com/about/), and download and install [Portal 2](https://store.steampowered.com/app/620/Portal_2/).
-2. Download the [latest Zip archive release of the Portal 2 mod's source code from this repository](https://github.com/GlassToadstool/Portal2ArchipelagoMod/archive/refs/heads/main.zip)
-3. Extract the top-level folder from the Zip file (named `Portal2ArchipelagoMod-main`)
-4. Place the `Portal2ArchipelagoMod-main` folder in the `sourcemods` Steam folder.
+2. Download the [latest Zip archive release of the Portal 2 mod](https://github.com/GlassToadstool/Portal2ArchipelagoMod/releases)
+3. Extract the top-level folder from the Zip file
+4. Place the `Portal2Archipelago` folder in the `sourcemods` Steam folder.
     - On Windows, this may be found at:
         - `C:\Program Files (x86)\Steam\steamapps\sourcemods`
     - On Linux, this may be found at:
         - `~/.local/share/Steam/steamapps/sourcemods/`
-5. Rename the folder from `Portal2ArchipelagoMod-main` to `Portal2Archipelago`.
 
 The folder structure should look like this:
 
@@ -72,7 +71,7 @@ sourcemods
 
 ### Mod Creators
 
-- **Dyroha** - Lead Developer
+- **GlassToadstool** - Lead Developer
 - **Proplayen** - Logic Design
 - **JD** - Graphics
 - **Kaito Kid** - Answering lots of questions about APWorld development
