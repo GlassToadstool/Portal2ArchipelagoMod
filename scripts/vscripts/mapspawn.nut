@@ -14,6 +14,16 @@ function ItemInList(item, list) {
 	return false;
 }
 
+function DegToRad(degrees) {
+    return degrees * (PI / 180);
+}
+
+function AnglesToDirection(angles) {
+    local theta = DegToRad(angles.z)
+    local phi = DegToRad(angles.y)
+    return Vector(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta)).Normalize();
+}
+
 ::scripted_fling_levels <- ["sp_a3_03", "sp_a3_bomb_flings", "sp_a3_transition01", "sp_a3_speed_flings", "sp_a3_end", "sp_a4_jump_polarity"];
 // Deletes entities not received yet can be done by class, name or model
 function DeleteEntity(entity_name, create_holo = true) {
@@ -32,7 +42,11 @@ function DeleteEntity(entity_name, create_holo = true) {
         }
 
         if (create_holo) {
-            CreateAPHologram(ent.GetOrigin() + Vector(0, 0, -50), ent.GetAngles(), 0.7, null, null, 4);
+            local angles = ent.GetAngles();
+            if (entity_name == "prop_tractor_beam") {
+                angles = Vector(0, 0, 0);
+            }
+            CreateAPHologram(ent.GetOrigin() + AnglesToDirection(angles) * Vector(-50, -50, -50), angles, 0.7, null, null, 4);
         }
 		ent.Destroy();
 	}
@@ -181,7 +195,11 @@ function RemovePotatosFromGun() {
 	ppmod.get("logic_playerproxy").RemovePotatosFromPortalgun();
 }
 
+::wheatley_screen_maps <- ["sp_a4_tb_intro", "sp_a4_tb_trust_drop", "sp_a4_tb_wall_button", "sp_a4_tb_polarity", "sp_a4_tb_catch", "sp_a4_stop_the_box", "sp_a4_laser_catapult", "sp_a4_laser_platform", "sp_a4_speed_tb_catch", "sp_a4_jump_polarity", "sp_a4_finale3"]
 function AddWheatlyMonitoBreakCheck() {
+    if (!ItemInList(GetMapName(), wheatley_screen_maps)) {
+        return;
+    }
     // Loop through all logic_relay
     local relay = null;
     while (relay = ppmod.get("logic_relay", relay)) {
@@ -246,7 +264,7 @@ function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offse
         local name = entity_name + count;
         count++;
         ent.targetname = name;
-        CreateAPHologram(position + Vector(0, 0, offset), angles, holo_scale, name, attachment_point, skin);
+        CreateAPHologram(position + AnglesToDirection(angles) * Vector(offset, offset, offset), angles, holo_scale, name, attachment_point, skin);
 	}
 }
 
