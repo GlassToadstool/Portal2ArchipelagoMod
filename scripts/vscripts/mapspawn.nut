@@ -254,6 +254,16 @@ function AddWheatlyMonitoBreakCheck() {
     holo.SetAngles(angle);
 })
 
+function RemoveRedundentHolos() {
+    ppmod.wait(function() {
+        // Remove holos that are very close to the player or where the player is looking
+        ppmod.forent([player.GetOrigin(), 100, "models/effects/ap/archipelago_hologram.mdl"], function (ent){
+            ent.Destroy();
+        });
+        printl("Removed redundent holos");
+    }, 0.5);
+}
+
 function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offset, skin = 0) {
     local ent = null;
     local count = 'a';
@@ -265,7 +275,7 @@ function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offse
         count++;
         ent.targetname = name;
         CreateAPHologram(position + AnglesToDirection(angles) * Vector(offset, offset, offset), angles, holo_scale, name, attachment_point, skin);
-	}
+    }
 }
 
 // When entering map send that info so we can delete entities
@@ -344,7 +354,6 @@ function DoMapSpecificSetup() {
         ppmod.addscript(ppmod.get(Vector(25, 1958, -299), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
         }, 0);
-        CreateAPHologram(Vector(25, 1958, -299), Vector(0, 0, 0), 0.66, null, null, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-704, 1856, -32), 2, "trigger_multiple"), "OnStartTouch", function(){
             printl("item_collected:Portal Gun");
@@ -355,16 +364,33 @@ function DoMapSpecificSetup() {
         ppmod.addscript(gun_trigger, "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
         }, 0);
-        // Create hologram
-        CreateAPHologram(gun_trigger.GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
         // Backup trigger for speedrun pickup
         ppmod.addscript(ppmod.get(Vector(-360, 440, -10680), 2, "trigger_once"), "OnStartTouch", function(){
             printl("item_collected:Upgraded Portal Gun");
         }, 0);
     }
     else if (current_map == "sp_a3_transition01") {
-        ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")")
-        CreateAPHologram(ppmod.get("sphere_entrance_potatos_button").GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
+        ppmod.addscript("sphere_entrance_potatos_button", "OnPressed", "printl(\"item_collected:PotatOS\")");
+    }
+}
+
+// Seperated out map_specific_holos
+function CreateMapSpecificHolos() {
+    local current_map = GetMapName();
+    try {
+        if (current_map == "sp_a1_intro3") {
+            CreateAPHologram(Vector(25, 1958, -299), Vector(0, 0, 0), 0.66, null, null, 0);
+        }
+        else if (current_map == "sp_a2_intro") {
+            local gun_trigger = ppmod.get("player_near_portalgun", null);
+            // Create hologram
+            CreateAPHologram(gun_trigger.GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
+        }
+        else if (current_map == "sp_a3_transition01") {
+            CreateAPHologram(ppmod.get("sphere_entrance_potatos_button").GetOrigin(), Vector(0, 0, 0), 0.66, null, null, 0);
+        }
+    } catch (e) {
+        printl("CreateMapSpecificHolos failed")
     }
 }
 
@@ -392,7 +418,7 @@ function AddToTextQueue(text, color = null) {
 
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
-	PrintMapName();
+    PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
@@ -400,5 +426,7 @@ ppmod.onauto(async(function () {
 	AttachDeathTrigger();
     AddWheatlyMonitoBreakCheck();
     DoMapSpecificSetup();
+    CreateMapSpecificHolos();
     CreateLPP();
+    RemoveRedundentHolos();
 }), true);
