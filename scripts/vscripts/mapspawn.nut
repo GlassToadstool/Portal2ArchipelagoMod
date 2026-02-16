@@ -327,7 +327,11 @@ function CreateCompleteLevelAlertHook() {
     }
 	else if (ItemInList(map, non_elevator_maps) ) {
 		local transition_script = ppmod.get("@transition_script", null);
-		ppmod.hook(transition_script, "RunScriptCode", PrintMapComplete, 1);
+		ppmod.hook(transition_script, "RunScriptCode", PrintMapComplete);
+        // Backup for sp_a4_finale3
+        if (map == "sp_a4_finale3"){
+            ppmod.addscript("transition_trigger", "OnStartTouch", PrintMapComplete)
+        }
 	}
     else {
         local cl = Entities.FindByName(null, "@transition_from_map");
