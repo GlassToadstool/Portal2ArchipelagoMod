@@ -192,7 +192,9 @@ function RemovePotatOS() {
 }
 
 function RemovePotatosFromGun() {
-	ppmod.get("logic_playerproxy").RemovePotatosFromPortalgun();
+    ppmod.wait(function () {
+	    ppmod.get("logic_playerproxy").RemovePotatosFromPortalgun();
+    }, 0.5)
 }
 
 ::wheatley_screen_maps <- ["sp_a4_tb_intro", "sp_a4_tb_trust_drop", "sp_a4_tb_wall_button", "sp_a4_tb_polarity", "sp_a4_tb_catch", "sp_a4_stop_the_box", "sp_a4_laser_catapult", "sp_a4_laser_platform", "sp_a4_speed_tb_catch", "sp_a4_jump_polarity", "sp_a4_finale3"]
@@ -210,21 +212,22 @@ function RemovePotatosFromGun() {
     sp_a4_finale3 = {}
 }
 
-screen_names.sp_a4_tb_intro["monitor1-relay_break"] <- "sp_a4_tb_intro monitor1"
-screen_names.sp_a4_tb_trust_drop["monitor1-relay_break"] <- "sp_a4_tb_trust_drop monitor1"
-screen_names.sp_a4_tb_wall_button["monitor1-relay_break"] <- "sp_a4_tb_wall_button monitor1"
-screen_names.sp_a4_tb_polarity["monitor1-relay_break"] <- "sp_a4_tb_polarity monitor1"
-screen_names.sp_a4_tb_catch["monitor1-relay_break"] <- "sp_a4_tb_catch monitor1"
-screen_names.sp_a4_tb_catch["monitor2-relay_break"] <- "sp_a4_tb_catch monitor2"
-screen_names.sp_a4_stop_the_box["monitor1-relay_break"] <- "sp_a4_stop_the_box monitor1"
-screen_names.sp_a4_laser_catapult["monitor1-relay_break"] <- "sp_a4_laser_catapult monitor1"
-screen_names.sp_a4_laser_platform["monitor1-relay_break"] <- "sp_a4_laser_platform monitor1"
-screen_names.sp_a4_speed_tb_catch["monitor1-relay_break"] <- "sp_a4_speed_tb_catch monitor1"
-screen_names.sp_a4_jump_polarity["monitor1-relay_break"] <- "sp_a4_jump_polarity monitor1"
-screen_names.sp_a4_finale3["monitor1-relay_break"] <- "sp_a4_finale3 monitor1"
+screen_names.sp_a4_tb_intro["monitor1-relay_break"] <- "sp_a4_tb_intro"
+screen_names.sp_a4_tb_trust_drop["monitor1-relay_break"] <- "sp_a4_tb_trust_drop"
+screen_names.sp_a4_tb_wall_button["wheatley_monitor-relay_break"] <- "sp_a4_tb_wall_button"
+screen_names.sp_a4_tb_polarity["monitor1-relay_break"] <- "sp_a4_tb_polarity"
+screen_names.sp_a4_tb_catch["monitor1-relay_break"] <- "sp_a4_tb_catch 1"
+screen_names.sp_a4_tb_catch["monitor2-relay_break"] <- "sp_a4_tb_catch 2"
+screen_names.sp_a4_stop_the_box["wheatley_monitor-relay_break"] <- "sp_a4_stop_the_box"
+screen_names.sp_a4_laser_catapult["wheatley_monitor_1-relay_break"] <- "sp_a4_laser_catapult"
+screen_names.sp_a4_laser_platform["wheatley_monitor_1-relay_break"] <- "sp_a4_laser_platform"
+screen_names.sp_a4_speed_tb_catch["wheatley_monitor-relay_break"] <- "sp_a4_speed_tb_catch"
+screen_names.sp_a4_jump_polarity["wheatley_monitor_1-relay_break"] <- "sp_a4_jump_polarity"
+screen_names.sp_a4_finale3["wheatley_screen-relay_break"] <- "sp_a4_finale3"
 
 function AddWheatlyMonitoBreakCheck() {
-    if (!ItemInList(GetMapName(), wheatley_screen_maps)) {
+    local map_name = GetMapName();
+    if (!(map_name in screen_names)) {
         return;
     }
     // Loop through all logic_relay
@@ -232,8 +235,8 @@ function AddWheatlyMonitoBreakCheck() {
     while (relay = ppmod.get("logic_relay", relay)) {
         // Check if it contains with relay_break e.g. monitor1-relay_break
 		local name = relay.GetName();
-        if (name in screen_names[GetMapName()]) {
-            local check_name = screen_names[GetMapName()][name];
+        if (name in screen_names[map_name]) {
+            local check_name = screen_names[map_name][name];
             ppmod.addscript(name, "OnTrigger", function():(check_name) {
                 printl("monitor_break:" + check_name);
             });
@@ -436,6 +439,7 @@ function AddToTextQueue(text, color = null) {
 
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
+    CreateLPP();
     PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
@@ -445,6 +449,5 @@ ppmod.onauto(async(function () {
     AddWheatlyMonitoBreakCheck();
     DoMapSpecificSetup();
     CreateMapSpecificHolos();
-    CreateLPP();
     RemoveRedundentHolos();
 }), true);
