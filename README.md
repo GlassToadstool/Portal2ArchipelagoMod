@@ -64,8 +64,10 @@ sourcemods
 1. Open the "Portal 2 Client" from the Archipelago launcher
 2. Input the multiworld server adress into the "Server" field at the top of the new window and press connect
 3. Input your slot name into the command field and press enter
-4. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
-5. From the game main menu select "Play Portal Archipelago"
+4. When you join a game the client may ask you to select a file with a prompt
+    - Simply locate the Portal2Archipelago mod location and find a file called `extras.txt` in the `scripts` folder and select that file
+6. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
+7. From the game main menu select "Play Portal Archipelago"
 
 ## Acknowledgements
 
