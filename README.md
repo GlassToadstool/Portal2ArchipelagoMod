@@ -1,6 +1,6 @@
 ![Portal 2 Archipelago Mod](md-imgs/Portal2pelago-LOGO.png)
 
-`Version 0.5.2`
+`Version 0.5.3`
 
 `Stable` `In Development`
 
