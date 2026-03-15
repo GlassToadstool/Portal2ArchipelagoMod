@@ -109,6 +109,18 @@ sourcemods
 6. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
 7. From the game main menu select "Play Portal Archipelago"
 
+
+# Portal 2 Client Commands
+
+**/check_connection** - Displays if the client is able to communicate with Portal 2
+
+**/deathlink** - Toggles deathlink
+
+**/refresh_menu** - Refreshes the menu if it is displaying incorrect information - especially useful after a reconnect
+
+**/needed {location_name}** - Displays information about the item requirements for in logic check completion
+
+
 # FAQ
 
 **Why do checks not send/ items are usable in game even if I don't have them unlocked?**
