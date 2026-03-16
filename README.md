@@ -145,15 +145,22 @@ There is a very small chance that for people running another server on their mac
 
 ## Mod Creators
 
+### Portal 2 Mod
+
+- **GlassToadstool** - Lead Developer
+- **Clone Fighter** - Loading Screens, Logo Graphics, and Cave Johnson Speech
+- **LimeDreaming** - Custom Font and Models
+- **JD** - Icon Graphics
+- **Kit Lemonfoot** - Documenting Gels for Split
+
+### APWorld
+
 - **GlassToadstool** - Lead Developer
 - **Proplayen** - Initial Logic Design
-- **JD** - Icon Graphics
-- **Kaito Kid** - Answering lots of questions about APWorld development
-- **studkid** - UT Support
-- **Clone Fighter** - Loading Screens, Logo Graphics, and Cave Johnson Speech
+- **Kaito Kid** - Assistance
+- **studkid** - Initial UT Support
 - **Charged_Neon** - Documentation
-- **LimeDreaming** - Custom Font and Models
-- **James** - apworld additions
+- **James** - Major Bug Fixing and UT updates
 
 ### Initial Testers
 
