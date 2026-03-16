@@ -299,6 +299,47 @@ function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offse
     }
 }
 
+function RemoveGel(x, y, z, object_type = null, object_name = null) { // entity can be any input to ppmod.get
+    local position = Vector(x, y, z);
+    if (object_type != null) { 
+        // Try to get an exact match 
+        local ent = null;
+        while (ent = ppmod.get(position, 5, object_type, ent)) {
+            if (object_name != null && ent.GetName() != object_name) {
+                continue;
+            } else {
+                break;
+            }
+        }
+        // If no exact match try to get any entity of the type nearby
+        if (ent == null) {
+            local ent = ppmod.get(position, 5, object_type);
+        }
+
+        if (ent == null) {
+            printl("No entity to remove");
+        } else {
+            printl("Removing gel near " + ent.GetName());
+            ent.Destroy();
+        }
+    }
+
+    // Clear any floor gel
+    ppmod.create("prop_paint_bomb").then(function (gel):(position) {
+        gel.SetOrigin(position);
+        gel.SetAbsVelocity(Vector(0, 0, 0));
+    });
+}
+
+// Create clear gel at position for removing floor gel
+function CreateClearGel(position, offset = -100) {
+    ppmod.create("prop_paint_bomb").then(function (gel):(position, offset) {
+        gel.paint_type = 3;
+        position.z += offset;
+        gel.SetOrigin(position);
+    });
+}
+
 // When entering map send that info so we can delete entities
 function PrintMapName() {
 	printl("map_name:" + GetMapName());
@@ -454,4 +495,12 @@ ppmod.onauto(async(function () {
     DoMapSpecificSetup();
     CreateMapSpecificHolos();
     RemoveRedundentHolos();
+
+    ppmod.wait(function() {
+        local ent = null;
+        while (ent = ppmod.get("prop_paint_bomb", ent)) {
+            ent.Destroy();
+        }
+         printl("Removed leftover paint bombs");
+    }, 3, "blow_up_paint_bombs");
 }), true);
