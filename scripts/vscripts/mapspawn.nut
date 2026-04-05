@@ -466,7 +466,7 @@ function AttachDeathTrigger() {
     ppmod.interval(function() {
         if (player.GetHealth() <= 0 && !sent_death_link) {
             sent_death_link = true;
-            printl("send_deathlink");
+            printl("send_deathlink " + GetMapName());
 			SendToConsole("restart");
         }
     }, 1)
