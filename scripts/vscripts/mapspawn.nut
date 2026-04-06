@@ -225,7 +225,13 @@ screen_names.sp_a4_speed_tb_catch["wheatley_monitor-relay_break"] <- "sp_a4_spee
 screen_names.sp_a4_jump_polarity["wheatley_monitor_1-relay_break"] <- "sp_a4_jump_polarity"
 screen_names.sp_a4_finale3["wheatley_screen-relay_break"] <- "sp_a4_finale3"
 
-function AddWheatlyMonitoBreakCheck() {
+::checked_screens <- [];
+
+function SetCheckedScreens(screen_names) {
+    checked_screens = screen_names;
+}
+
+function AddWheatleyMonitorBreakCheck() {
     local map_name = GetMapName();
     if (!(map_name in screen_names)) {
         return;
@@ -237,10 +243,18 @@ function AddWheatlyMonitoBreakCheck() {
 		local name = relay.GetName();
         if (name in screen_names[map_name]) {
             local check_name = screen_names[map_name][name];
+
             ppmod.addscript(name, "OnTrigger", function():(check_name) {
                 printl("monitor_break:" + check_name);
             });
-            CreateAPHologram(relay.GetOrigin(), Vector(0, 0, 0), 0.9, null, null, 0, name);
+            local skin = 0;
+            for (local i = 0; i < checked_screens.len(); i++) {
+                if (checked_screens[i] == check_name) {
+                    skin = 1;
+                    break;
+                }
+            }
+            CreateAPHologram(relay.GetOrigin(), Vector(0, 0, 0), 0.9, null, null, skin, name);
         }
 	}
 }
@@ -446,7 +460,6 @@ ppmod.onauto(async(function () {
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
-    AddWheatlyMonitoBreakCheck();
     DoMapSpecificSetup();
     CreateMapSpecificHolos();
     RemoveRedundentHolos();
