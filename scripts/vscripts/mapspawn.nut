@@ -260,13 +260,13 @@ function AddWheatleyMonitorBreakCheck() {
 }
 
 
-::CreateAPButton <- async(function (name, position, angle, holo_scale) {
+::CreateAPButton <- async(function (name, position, angle, holo_scale, skin = 0) {
     yield ppmod.button("prop_button", position, angle);
     local button = yielded;
     button.OnPressed(function ():(name) {
         printl("button_check:" + name);
     });
-    CreateAPHologram(position + Vector(0, 0, 75) * holo_scale, angle + Vector(0, 90, 0), holo_scale);
+    CreateAPHologram(position + Vector(0, 0, 75) * holo_scale, angle + Vector(0, 90, 0), holo_scale, null, null, skin, name);
 })
 
 ::CreateAPHologram <- async(function (position, angle, scale, new_parent = null, attachment_point = null, skin = 0, name = null) {
