@@ -259,6 +259,51 @@ function AddWheatleyMonitorBreakCheck() {
 	}
 }
 
+::vitriolic_doors_in_maps <- {
+    "sp_a3_03" = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+    "sp_a3_transition01" = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+}
+
+::vitriolic_door_check_names <- {
+    "sp_a3_03" = {
+        "dummy_chamber_button" = "Vitriolic Door 1",
+        "dummy_chamber_button2" = "Vitriolic Door 2",
+        "dummy_chamber_button3" = "Vitriolic Door 3",
+    },
+    "sp_a3_transition01" = {
+        "dummy_chamber_button" = "Vitriolic Door 4",
+        "dummy_chamber_button2" = "Vitriolic Door 5",
+        "dummy_chamber_button3" = "Vitriolic Door 6",
+    },
+}
+
+::checked_vitriolic_doors <- {
+    "sp_a3_03" = [],
+    "sp_a3_transition01" = [],
+};
+
+function AddVitriolicDoorChecks() {
+    local map_name = GetMapName();
+    if (!(map_name in vitriolic_doors_in_maps)) {
+        return;
+    }
+    local door_names = vitriolic_doors_in_maps[map_name];
+    for (local i = 0; i < door_names.len(); i++) {
+        local name = door_names[i];
+        ppmod.addscript(name, "OnPressed", function():(map_name,name) {
+            printl("button_pressed:" + vitriolic_door_check_names[map_name][name]);
+        });
+        local skin = 0;
+        for (local j = 0; j < checked_vitriolic_doors[map_name].len(); j++) {
+            if (checked_vitriolic_doors[map_name][j] == vitriolic_door_check_names[map_name][name]) {
+                skin = 1;
+                break;
+            }
+        }
+        CreateAPHologram(ppmod.get(name).GetOrigin(), Vector(0, 0, 0), 0.9, null, null, 0, name, skin);
+    }
+}
+
 
 ::CreateAPButton <- async(function (name, position, angle, holo_scale, skin = 0) {
     yield ppmod.button("prop_button", position, angle);
