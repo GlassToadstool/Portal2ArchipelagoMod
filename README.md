@@ -101,12 +101,13 @@ sourcemods
 8. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Archipelago/releases/latest) file into the Archipelago launcher using the "Install APWorld" option
 
 ## Running
-1. Open the "Portal 2 Client" from the Archipelago launcher
-2. Input the multiworld server address into the "Server" field at the top of the new window and press connect
-3. Input your slot name into the command field and press enter
-4. When you join a game the client may ask you to select a file with a prompt
+1. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
+2. Open the "Portal 2 Client" from the Archipelago launcher
+3. Input the multiworld server address into the "Server" field at the top of the new window and press connect
+4. Input your slot name into the command field and press enter
+5. When you join a game the client may ask you to select a file with a prompt
     - Simply locate the Portal2Archipelago mod location and find a file called `extras.txt` in the `scripts` folder and select that file. For Windows that may looks something like `C:/.../Steam/steamapps/sourcemods/Portal2Archipelago/scripts/extras.txt`
-6. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
+6. Go back to the currently open sourcemod (Portal 2 Archipelago Mod)
 7. From the game main menu select "Play Portal Archipelago"
 
 
