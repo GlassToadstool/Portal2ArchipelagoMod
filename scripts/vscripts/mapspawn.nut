@@ -74,10 +74,14 @@ function DisablePortalGun(blue, orange) {
 	}
 }
 
+reflection_cube <- "models/props/reflection_cube.mdl"
+
 // Disable pickup of entity by class, name or model?
 function DisableEntityPickup(entity_name) {
 	ppmod.keyval(entity_name, "PickupEnabled", false);
 }
+
+turret <- "npc_portal_turret_floor";
 
 function DisableEntityPhysics(entity_name) {
     ppmod.keyval(entity_name, "MoveType", 4);
