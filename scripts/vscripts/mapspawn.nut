@@ -259,49 +259,50 @@ function AddWheatleyMonitorBreakCheck() {
 	}
 }
 
-::vitriolic_doors_in_maps <- {
-    "sp_a3_03" = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
-    "sp_a3_transition01" = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+::vitrified_doors_in_maps <- {
+    sp_a3_03 = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+    sp_a3_transition01 = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
 }
 
-::vitriolic_door_check_names <- {
-    "sp_a3_03" = {
-        "dummy_chamber_button" = "Vitriolic Door 1",
-        "dummy_chamber_button2" = "Vitriolic Door 2",
-        "dummy_chamber_button3" = "Vitriolic Door 3",
+::vitrified_door_check_names <- {
+    sp_a3_03 = {
+        dummy_chamber_button = "Vitrified Door 1",
+        dummy_chamber_button2 = "Vitrified Door 2",
+        dummy_chamber_button3 = "Vitrified Door 3",
     },
-    "sp_a3_transition01" = {
-        "dummy_chamber_button" = "Vitriolic Door 4",
-        "dummy_chamber_button2" = "Vitriolic Door 5",
-        "dummy_chamber_button3" = "Vitriolic Door 6",
+    sp_a3_transition01 = {
+        dummy_chamber_button = "Vitrified Door 4",
+        dummy_chamber_button2 = "Vitrified Door 5",
+        dummy_chamber_button3 = "Vitrified Door 6",
     },
 }
 
-::checked_vitriolic_doors <- {
-    "sp_a3_03" = [],
-    "sp_a3_transition01" = [],
+::checked_vitrified_doors <- {
+    sp_a3_03 = [],
+    sp_a3_transition01 = [],
 };
 
-function AddVitriolicDoorChecks() {
+function AddVitrifiedDoorChecks() {
     local map_name = GetMapName();
-    if (!(map_name in vitriolic_doors_in_maps)) {
+    if (!(map_name in vitrified_doors_in_maps)) {
         return;
     }
-    local door_names = vitriolic_doors_in_maps[map_name];
+    local door_names = vitrified_doors_in_maps[map_name];
     for (local i = 0; i < door_names.len(); i++) {
         local name = door_names[i];
         ppmod.addscript(name, "OnPressed", function():(map_name,name) {
-            printl("button_pressed:" + vitriolic_door_check_names[map_name][name]);
-        });
+            printl("button_check:" + vitrified_door_check_names[map_name][name]);
+        }, 0, -1);
         local skin = 0;
-        for (local j = 0; j < checked_vitriolic_doors[map_name].len(); j++) {
-            if (checked_vitriolic_doors[map_name][j] == vitriolic_door_check_names[map_name][name]) {
+        for (local j = 0; j < checked_vitrified_doors[map_name].len(); j++) {
+            if (checked_vitrified_doors[map_name][j] == vitrified_door_check_names[map_name][name]) {
                 skin = 1;
                 break;
             }
         }
-        CreateAPHologram(ppmod.get(name).GetOrigin(), Vector(0, 0, 0), 0.9, null, null, 0, name, skin);
+        CreateAPHologram(ppmod.get(name).GetOrigin() + Vector(0, 0, -25), Vector(0, 0, 0), 0.6, null, null, skin, name);
     }
+    printl("Vitrified Door Locations Linked")
 }
 
 
@@ -506,6 +507,7 @@ ppmod.onauto(async(function () {
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
     DoMapSpecificSetup();
+    AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
     RemoveRedundentHolos();
 }), true);
