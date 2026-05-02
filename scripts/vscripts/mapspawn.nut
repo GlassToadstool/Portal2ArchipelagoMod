@@ -74,10 +74,14 @@ function DisablePortalGun(blue, orange) {
 	}
 }
 
+reflection_cube <- "models/props/reflection_cube.mdl"
+
 // Disable pickup of entity by class, name or model?
 function DisableEntityPickup(entity_name) {
 	ppmod.keyval(entity_name, "PickupEnabled", false);
 }
+
+turret <- "npc_portal_turret_floor";
 
 function DisableEntityPhysics(entity_name) {
     ppmod.keyval(entity_name, "MoveType", 4);
@@ -225,7 +229,13 @@ screen_names.sp_a4_speed_tb_catch["wheatley_monitor-relay_break"] <- "sp_a4_spee
 screen_names.sp_a4_jump_polarity["wheatley_monitor_1-relay_break"] <- "sp_a4_jump_polarity"
 screen_names.sp_a4_finale3["wheatley_screen-relay_break"] <- "sp_a4_finale3"
 
-function AddWheatlyMonitoBreakCheck() {
+::checked_screens <- [];
+
+function SetCheckedScreens(screen_names) {
+    checked_screens = screen_names;
+}
+
+function AddWheatleyMonitorBreakCheck() {
     local map_name = GetMapName();
     if (!(map_name in screen_names)) {
         return;
@@ -237,22 +247,76 @@ function AddWheatlyMonitoBreakCheck() {
 		local name = relay.GetName();
         if (name in screen_names[map_name]) {
             local check_name = screen_names[map_name][name];
+
             ppmod.addscript(name, "OnTrigger", function():(check_name) {
                 printl("monitor_break:" + check_name);
             });
-            CreateAPHologram(relay.GetOrigin(), Vector(0, 0, 0), 0.9, null, null, 0, name);
+            local skin = 0;
+            for (local i = 0; i < checked_screens.len(); i++) {
+                if (checked_screens[i] == check_name) {
+                    skin = 1;
+                    break;
+                }
+            }
+            CreateAPHologram(relay.GetOrigin(), Vector(0, 0, 0), 0.9, null, null, skin, name);
         }
 	}
 }
 
+::vitrified_doors_in_maps <- {
+    sp_a3_03 = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+    sp_a3_transition01 = ["dummy_chamber_button", "dummy_chamber_button2", "dummy_chamber_button3"],
+}
 
-::CreateAPButton <- async(function (name, position, angle, holo_scale) {
+::vitrified_door_check_names <- {
+    sp_a3_03 = {
+        dummy_chamber_button = "Vitrified Door 1",
+        dummy_chamber_button2 = "Vitrified Door 2",
+        dummy_chamber_button3 = "Vitrified Door 3",
+    },
+    sp_a3_transition01 = {
+        dummy_chamber_button = "Vitrified Door 4",
+        dummy_chamber_button2 = "Vitrified Door 5",
+        dummy_chamber_button3 = "Vitrified Door 6",
+    },
+}
+
+::checked_vitrified_doors <- {
+    sp_a3_03 = [],
+    sp_a3_transition01 = [],
+};
+
+function AddVitrifiedDoorChecks() {
+    local map_name = GetMapName();
+    if (!(map_name in vitrified_doors_in_maps)) {
+        return;
+    }
+    local door_names = vitrified_doors_in_maps[map_name];
+    for (local i = 0; i < door_names.len(); i++) {
+        local name = door_names[i];
+        ppmod.addscript(name, "OnPressed", function():(map_name,name) {
+            printl("button_check:" + vitrified_door_check_names[map_name][name]);
+        }, 0, -1);
+        local skin = 0;
+        for (local j = 0; j < checked_vitrified_doors[map_name].len(); j++) {
+            if (checked_vitrified_doors[map_name][j] == vitrified_door_check_names[map_name][name]) {
+                skin = 1;
+                break;
+            }
+        }
+        CreateAPHologram(ppmod.get(name).GetOrigin() + Vector(0, 0, -25), Vector(0, 0, 0), 0.6, null, null, skin, name);
+    }
+    printl("Vitrified Door Locations Linked")
+}
+
+
+::CreateAPButton <- async(function (name, position, angle, holo_scale, skin = 0) {
     yield ppmod.button("prop_button", position, angle);
     local button = yielded;
     button.OnPressed(function ():(name) {
         printl("button_check:" + name);
     });
-    CreateAPHologram(position + Vector(0, 0, 75) * holo_scale, angle + Vector(0, 90, 0), holo_scale);
+    CreateAPHologram(position + Vector(0, 0, 75) * holo_scale, angle + Vector(0, 90, 0), holo_scale, null, null, skin, name);
 })
 
 ::CreateAPHologram <- async(function (position, angle, scale, new_parent = null, attachment_point = null, skin = 0, name = null) {
@@ -491,8 +555,8 @@ ppmod.onauto(async(function () {
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
-    AddWheatlyMonitoBreakCheck();
     DoMapSpecificSetup();
+    AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
     RemoveRedundentHolos();
 
