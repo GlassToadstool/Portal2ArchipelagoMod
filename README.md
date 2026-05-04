@@ -1,6 +1,7 @@
 ![Portal 2 Archipelago Mod](md-imgs/Portal2pelago-LOGO.png)
 
-`Version 0.7.0`
+`Version 0.7.1`
+
 `Stable` `In Development`
 
 This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
