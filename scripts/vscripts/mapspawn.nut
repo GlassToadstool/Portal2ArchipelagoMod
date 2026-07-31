@@ -270,14 +270,14 @@ function AddWheatleyMonitorBreakCheck() {
 
 ::vitrified_door_check_names <- {
     sp_a3_03 = {
-        dummy_chamber_button = "Vitrified Door 1",
-        dummy_chamber_button2 = "Vitrified Door 2",
-        dummy_chamber_button3 = "Vitrified Door 3",
+        dummy_chamber_button = "Vitrified Door 1 (Cave Johnson)",
+        dummy_chamber_button2 = "Vitrified Door 2 (Cave Johnson)",
+        dummy_chamber_button3 = "Vitrified Door 3 (Cave Johnson)",
     },
     sp_a3_transition01 = {
-        dummy_chamber_button = "Vitrified Door 4",
-        dummy_chamber_button2 = "Vitrified Door 5",
-        dummy_chamber_button3 = "Vitrified Door 6",
+        dummy_chamber_button = "Vitrified Door 4 (PotatOS)",
+        dummy_chamber_button2 = "Vitrified Door 5 (PotatOS)",
+        dummy_chamber_button3 = "Vitrified Door 6 (PotatOS)",
     },
 }
 
@@ -339,19 +339,22 @@ function AddVitrifiedDoorChecks() {
     }
 })
 
-function RemoveRedundentHolos() {
+function RemoveAllHolos() {
     ppmod.wait(function() {
         // Remove holos that are very close to the player or where the player is looking
-        ppmod.forent([player.GetOrigin(), 100, "models/effects/ap/archipelago_hologram.mdl"], function (ent){
+        ppmod.forent("models/effects/ap/archipelago_hologram.mdl", function (ent){
             ent.Destroy();
         });
-        printl("Removed redundent holos");
-    }, 0.5);
+        printl("Removed all holos");
+    }, 0);
 }
 
 function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offset, skin = 0) {
+    if (GetMapName() == "sp_a1_intro7") {
+        return;
+    }
     local ent = null;
-    local count = 'a';
+    local count = 0;
 	while (ent = ppmod.get(entity_name, ent)) {
 		// Get origin and maybe angle?
         local position = ent.GetOrigin();
@@ -365,8 +368,8 @@ function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offse
 
 function RemoveGel(x, y, z, object_type = null, object_name = null) { // entity can be any input to ppmod.get
     local position = Vector(x, y, z);
-    if (object_type != null) { 
-        // Try to get an exact match 
+    if (object_type != null) {
+        // Try to get an exact match
         local ent = null;
         while (ent = ppmod.get(position, 5, object_type, ent)) {
             if (object_name != null && ent.GetName() != object_name) {
@@ -429,7 +432,7 @@ function PrintMapComplete() {
 	}
     PrintMapCompleteNoExit();
 	// Quit out after a delay
-	ppmod.wait(ExitToMenu, 2, "return_to_menu");
+	// ppmod.wait(ExitToMenu, 2, "return_to_menu"); Handeling this client side now
 }
 
 function ExitToMenu() {
@@ -549,6 +552,7 @@ function AddToTextQueue(text, color = null) {
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
     CreateLPP();
+    RemoveAllHolos();
     PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
@@ -558,7 +562,6 @@ ppmod.onauto(async(function () {
     DoMapSpecificSetup();
     AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
-    RemoveRedundentHolos();
 
     ppmod.wait(function() {
         local ent = null;
