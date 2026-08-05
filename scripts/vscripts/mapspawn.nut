@@ -562,6 +562,7 @@ ppmod.onauto(async(function () {
     DoMapSpecificSetup();
     AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
+	SendToConsole("-use"); // To fix grab duing transition with butter fingers
 
     ppmod.wait(function() {
         local ent = null;
