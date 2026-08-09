@@ -365,8 +365,8 @@ function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offse
 
 function RemoveGel(x, y, z, object_type = null, object_name = null) { // entity can be any input to ppmod.get
     local position = Vector(x, y, z);
-    if (object_type != null) { 
-        // Try to get an exact match 
+    if (object_type != null) {
+        // Try to get an exact match
         local ent = null;
         while (ent = ppmod.get(position, 5, object_type, ent)) {
             if (object_name != null && ent.GetName() != object_name) {
@@ -414,6 +414,16 @@ function ListEntities() {
 	while (ent = Entities.Next(ent)) {
 		printl(ent);
 	}
+}
+
+function HookLogicAchievements() {
+    local ent = null;
+	while (ent = ppmod.get("logic_achievement", ent)) {
+        local name = ent.GetName();
+        ppmod.addscript(ent, "OnFired", function():(name) {
+            printl("achievement " + name);
+        })
+    }
 }
 
 function PrintMapCompleteNoExit() {
@@ -555,6 +565,7 @@ ppmod.onauto(async(function () {
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
+    HookLogicAchievements();
     DoMapSpecificSetup();
     AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
