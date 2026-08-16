@@ -1,12 +1,12 @@
 ![Portal 2 Archipelago Mod](md-imgs/Portal2pelago-LOGO.png)
 
-`Version 0.7.1`
+`Version 0.8.1`
 
 `Stable` `In Development`
 
 This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
 
-This must be used with the [Portal 2 APWorld and Client](https://github.com/GlassToadstool/Archipelago/releases).
+This must be used with the Portal 2 APWorld and Client version released with the mod.
 
 ***
 \**Cough cough\**
