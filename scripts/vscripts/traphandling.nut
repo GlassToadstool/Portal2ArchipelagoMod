@@ -61,17 +61,6 @@ function ButterFingersTrap() {
 	}, 30, bf_disable)
 }
 
-::text_options <- ["THE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!\nTHE CAKE IS A LIE!THE CAKE IS A LIE!THE CAKE IS A LIE!"]
-
-function DialogTrap() {
-	local text = text_options[0];
-	local dt = ppmod.text(text, 0.2, 0.1);
-	dt.SetColor("250 0 0");
-	dt.SetSize(5);
-	dt.SetFade(0.1, 0.1);
-	dt.Display(15);
-}
-
 ::colors <- ["255 0 0", "0 255 0", "0 0 255", "255 255 0", "255 0 255", "0 255 255"];
 function CubeConfettiTrap() {
 	// Spawn a bunch of multicolored cubes under the player
