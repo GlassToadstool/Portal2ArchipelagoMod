@@ -20,7 +20,7 @@
 "OutroCreditsNames"
 {
 	">LIST PERSONNEL:" "CreditsOutroText"
-	"Dyroha" "CreditsOutroText"
+	"GlassToadstool" "CreditsOutroText"
 	"Proplayen" "CreditsOutroText"
 	"JD" "CreditsOutroText"
 	"Kaito Kid" "CreditsOutroText"

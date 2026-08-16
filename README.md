@@ -1,15 +1,12 @@
 ![Portal 2 Archipelago Mod](md-imgs/Portal2pelago-LOGO.png)
 
-`Version 0.8.0`
+`Version 0.8.1`
 
 `Stable` `In Development`
 
 This is a Portal 2 mod designed for use with Archipelago, a multi-game collaborative randomiser.
 
 This must be used with the Portal 2 APWorld and Client version released with the mod.
-
-> [!WARNING]
-> This mod is not compatible with SteamOS.
 
 ***
 \**Cough cough\**
@@ -95,10 +92,10 @@ sourcemods
     - On Windows, put:
         - `-netconport 3000`
     - On Linux, put: 
-        - `%command% -netconport 3000`
+        - `-tools -netconport 3000`
 > [!TIP]
 > If on Linux, and you cannot get the game to open as expected, you may need to run the game using Proton, following the Windows install steps.
-8. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Archipelago/releases/latest) file into the Archipelago launcher using the "Install APWorld" option
+8. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Portal2ArchipelagoMod/releases) file into the Archipelago launcher using the "Install APWorld" option
 
 ## Running
 1. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
@@ -162,6 +159,7 @@ There is a very small chance that for people running another server on their mac
 - **studkid** - Initial UT Support
 - **Charged_Neon** - Documentation
 - **James** - Major Bug Fixing and UT updates
+- **Tenebrosful** - Intergrated UT into the client
 
 ### Initial Testers
 

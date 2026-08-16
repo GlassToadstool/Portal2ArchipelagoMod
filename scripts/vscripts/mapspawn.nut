@@ -419,6 +419,16 @@ function ListEntities() {
 	}
 }
 
+function HookLogicAchievements() {
+    local ent = null;
+	while (ent = ppmod.get("logic_achievement", ent)) {
+        local name = ent.GetName();
+        ppmod.addscript(ent, "OnFired", function():(name) {
+            printl("achievement " + name);
+        })
+    }
+}
+
 function PrintMapCompleteNoExit() {
     printl("map_complete:" + GetMapName());
 }
@@ -559,6 +569,7 @@ ppmod.onauto(async(function () {
 		}, text_queue.display_time + 1);
     CreateCompleteLevelAlertHook();
 	AttachDeathTrigger();
+    HookLogicAchievements();
     DoMapSpecificSetup();
     AddVitrifiedDoorChecks();
     CreateMapSpecificHolos();
