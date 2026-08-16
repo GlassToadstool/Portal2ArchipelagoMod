@@ -95,7 +95,7 @@ sourcemods
         - `-tools -netconport 3000`
 > [!TIP]
 > If on Linux, and you cannot get the game to open as expected, you may need to run the game using Proton, following the Windows install steps.
-1. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Portal2ArchipelagoMod/releases) file into the Archipelago launcher using the "Install APWorld" option
+8. Download and install the [`portal2.apworld`](https://github.com/GlassToadstool/Portal2ArchipelagoMod/releases) file into the Archipelago launcher using the "Install APWorld" option
 
 ## Running
 1. Launch the sourcemod (Portal 2 Archipelago Mod) from steam
