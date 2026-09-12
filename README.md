@@ -104,8 +104,10 @@ sourcemods
 4. Input your slot name into the command field and press enter
 5. When you join a game the client may ask you to select a file with a prompt
     - Simply locate the Portal2Archipelago mod location and find a file called `extras.txt` in the `scripts` folder and select that file. For Windows that may looks something like `C:/.../Steam/steamapps/sourcemods/Portal2Archipelago/scripts/extras.txt`
-6. Go back to the currently open sourcemod (Portal 2 Archipelago Mod)
-7. From the game main menu select "Play Portal Archipelago"
+6. Now you can select the maps tab in the Portal 2 Text Client and pick any maps you wish to play from there
+![Portal 2 Text Client Menu](md-imgs/p2client.png)
+> [!NOTE]
+> The Tracker tab will not appear if you don't have Universal Tracker installed, so don't worry if it isn't there
 
 
 # Portal 2 Client Commands
