@@ -339,16 +339,6 @@ function AddVitrifiedDoorChecks() {
     }
 })
 
-function RemoveAllHolos() {
-    ppmod.wait(function() {
-        // Remove holos that are very close to the player or where the player is looking
-        ppmod.forent("models/effects/ap/archipelago_hologram.mdl", function (ent){
-            ent.Destroy();
-        });
-        printl("Removed all holos");
-    }, 0);
-}
-
 function AttachHologramToEntity(entity_name, attachment_point, holo_scale, offset, skin = 0) {
     if (GetMapName() == "sp_a1_intro7") {
         return;
@@ -562,8 +552,6 @@ function AddToTextQueue(text, color = null) {
 // When world loads tell archipelago client and check if is connected
 ppmod.onauto(async(function () {
     CreateLPP();
-    RemoveAllHolos();
-    PrintMapName();
 	ppmod.interval(function () {
 			text_queue.DisplayQueueMessage();
 		}, text_queue.display_time + 1);
@@ -582,4 +570,6 @@ ppmod.onauto(async(function () {
         }
          printl("Removed leftover paint bombs");
     }, 3, "blow_up_paint_bombs");
-}), true);
+
+    PrintMapName();
+}), false);
